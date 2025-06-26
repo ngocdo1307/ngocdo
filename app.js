@@ -24,8 +24,11 @@ document.getElementById("btn-login").addEventListener("click", () => {
   const pass = document.getElementById("login-pass").value;
 
   signInWithEmailAndPassword(auth, email, pass)
-    .then(() => alert("✅ Đăng nhập thành công!"))
-    .catch(err => alert("❌ Lỗi đăng nhập: " + err.message));
+  .then(() => {
+    alert("✅ Đăng nhập thành công!");
+    window.location.href = "dashboard.html"; // 👉 Chuyển sang trang chức năng
+  })
+  .catch(err => alert("❌ Lỗi đăng nhập: " + err.message));
 });
 
 // Xử lý hiển thị form đăng ký
