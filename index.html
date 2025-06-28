@@ -2,9 +2,8 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Đăng nhập</title>
+  <title>Đăng nhập Firebase</title>
   <link rel="stylesheet" href="style.css">
-  <script type="module" src="app.js" defer></script>
 </head>
 <body>
   <div class="container">
@@ -12,6 +11,18 @@
     <input type="email" id="login-email" placeholder="Email">
     <input type="password" id="login-pass" placeholder="Mật khẩu">
     <button id="btn-login">Đăng nhập</button>
+
+    <button id="show-register">Đăng ký tài khoản mới</button>
+
+    <div id="register-form" class="hidden">
+      <h2>Đăng ký</h2>
+      <input type="email" id="reg-email" placeholder="Email">
+      <input type="password" id="reg-pass" placeholder="Mật khẩu">
+      <button id="btn-register">Đăng ký</button>
+    </div>
   </div>
+
+  <!-- 💡 Đặt script ở cuối để đảm bảo các phần tử đã được tạo -->
+  <script type="module" src="app.js"></script>
 </body>
 </html>
