@@ -52,6 +52,14 @@ button:hover {
   gap: 15px;
   margin-top: 20px;
 }
+@media (max-width: 480px) {
+  .container {
+    width: 90%;
+    max-width: 350px;
+    padding: 20px;
+  }
+}
+
 a.admin-link {
   color: #00ff00 !important;
 }
