@@ -44,6 +44,59 @@ button {
 button:hover {
   background-color: #319795;
 }
+/* Bổ sung: Khung container riêng cho dashboard */
+.container.dashboard {
+  max-width: 800px;  /* rộng hơn form login */
+  width: 95%;
+  margin: 40px auto;
+  padding: 30px 20px;
+}
+
+/* Bổ sung: Grid responsive */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 15px;
+  margin: 30px 0;
+}
+
+.grid a {
+  text-decoration: none;
+}
+
+.grid button {
+  width: 100%;
+  padding: 15px 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  background: #38b2ac;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.grid button:hover {
+  background: #319795;
+}
+
+/* Nút đăng xuất cũng to đẹp */
+#logout {
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  margin-top: 20px;
+  background: #ff3399;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#logout:hover {
+  background: #cc267a;
+}
 
 .hidden {
   display: none;
