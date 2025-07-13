@@ -14,82 +14,58 @@
 
     <p>
       Đăng ký tài khoản mới liên hệ 
-      <a href="trangcanhan100.html" target="_blank" class="admin-link">Admin</a>
+      <a href="trangcanhan100.html" target="_blank">Admin</a>
     </p>
 
     <!-- ✅ Bộ đếm truy cập -->
     <div style="margin-top: 20px; font-size: 14px; color: #ff3399;">
       Số lượt truy cập: <span id="visitCount" style="color: #ffcc00;">Đang tải...</span>
     </div>
+
   </div>
 
-  <!-- 💡 Script đặt cuối -->
+  <!-- 💡 Đặt script ở cuối -->
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import {
       getAuth,
       signInWithEmailAndPassword
-    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
     import {
       getDatabase,
       ref,
+      get,
       runTransaction
-    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-    // ✅ Project A: Đăng nhập (ngocdo1)
-    const firebaseConfigAuth = {
+    // ✅ Firebase config của bạn
+    const firebaseConfig = {
       apiKey: "AIzaSyAGibQhw21VUcPINMMKWV-rosFiyr3rRAs",
       authDomain: "ngocdo1.firebaseapp.com",
+      databaseURL: "https://ngocdo1-default-rtdb.firebaseio.com",
       projectId: "ngocdo1",
-      storageBucket: "ngocdo1.firebasestorage.app",
+      storageBucket: "ngocdo1.appspot.com",
       messagingSenderId: "598746900527",
       appId: "1:598746900527:web:8231c7acd0ad49ccd7beda"
     };
-    const appAuth = initializeApp(firebaseConfigAuth, "authApp");
-    const auth = getAuth(appAuth);
 
-    // ✅ Project B: Bộ đếm (bodemtruycap)
-    const firebaseConfigCounter = {
-      apiKey: "AIzaSyCEjYts4d4zjsnGpFIGvAm-G5lmXMkCfsk",
-      authDomain: "bodemtruycap.firebaseapp.com",
-      databaseURL: "https://bodemtruycap-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "bodemtruycap",
-      storageBucket: "bodemtruycap.appspot.com",
-      messagingSenderId: "988148784519",
-      appId: "1:988148784519:web:8036c73f8c24122b9cc722"
-    };
-    const appCounter = initializeApp(firebaseConfigCounter, "counterApp");
-    const db = getDatabase(appCounter);
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
 
-    // ✅ Xử lý Đăng nhập
+    // ✅ Đăng nhập
     document.getElementById("btn-login").addEventListener("click", () => {
-      const email = document.getElementById("login-email").value.trim();
-      const pass = document.getElementById("login-pass").value.trim();
+      const email = document.getElementById("login-email").value;
+      const pass = document.getElementById("login-pass").value;
 
       signInWithEmailAndPassword(auth, email, pass)
         .then(() => {
           alert("✅ Đăng nhập thành công!");
           window.location.href = "dashboard.html";
         })
-        .catch(err => {
-          alert("❌ Lỗi đăng nhập: " + err.message);
-        });
+        .catch(err => alert("❌ Lỗi đăng nhập: " + err.message));
     });
 
-    // ✅ Xử lý Bộ đếm
-    const counterRef = ref(db, "visitCount");
-    runTransaction(counterRef, current => (current || 0) + 1)
-      .then(result => {
-        if (result.committed) {
-          document.getElementById("visitCount").innerText = result.snapshot.val();
-        } else {
-          document.getElementById("visitCount").innerText = "Lỗi cập nhật";
-        }
-      })
-      .catch(err => {
-        console.error(err);
-        document.getElementById("visitCount").innerText = "Lỗi";
-      });
   </script>
 </body>
 </html>
