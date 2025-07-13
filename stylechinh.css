@@ -1,5 +1,5 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Poppins', Arial, sans-serif;
   background: linear-gradient(to right, #667eea, #764ba2);
   color: #fff;
   display: flex;
@@ -10,58 +10,47 @@ body {
 }
 
 .container {
-  background-color: rgba(0, 0, 0, 0.4);
-  padding: 50px;
-  border-radius: 10px;
-  width: 100%;         /* chiếm 100% bề ngang cha */
-  max-width: 400px;    /* nhưng tối đa 400px */
-  min-height: 800px;  /* tối thiểu 400px chiều cao */
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 50px 40px;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
   text-align: center;
-  font-size: 38px;
+  backdrop-filter: blur(5px);
+}
+
+h1 {
+  margin-bottom: 30px;
+  font-size: 24px;
+  font-weight: 600;
 }
 
 input {
   width: 100%;
-  padding: 10px;
-  margin-top: 10px;
+  padding: 12px 15px;
+  margin-top: 15px;
   border: none;
-  border-radius: 5px;
-   font-size: 36px;
+  border-radius: 8px;
+  font-size: 16px;
 }
 
 button {
   width: 100%;
-  padding: 10px;
-  margin-top: 15px;
-  background-color: #38b2ac;
+  padding: 12px;
+  margin-top: 20px;
+  background: linear-gradient(90deg, #38b2ac, #319795);
   border: none;
-  border-radius: 5px;
-  color: white;
-  font-weight: bold;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-   font-size: 36px;
+  transition: background 0.3s ease;
 }
 
 button:hover {
-  background-color: #319795;
-}
-
-.hidden {
-  display: none;
-}
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-  margin-top: 20px;
-}
-@media (max-width: 480px) {
-  .container {
-    width: 90%;
-    max-width: 350px;
-    padding: 20px;
-  }
+  background: linear-gradient(90deg, #319795, #38b2ac);
 }
 
 a.admin-link {
@@ -70,4 +59,15 @@ a.admin-link {
 
 a.admin-link:visited {
   color: #00ff00 !important;
+}
+
+.hidden {
+  display: none;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 20px;
 }
