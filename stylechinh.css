@@ -51,3 +51,10 @@ button:hover {
   gap: 15px;
   margin-top: 20px;
 }
+a.admin-link {
+  color: #00ff00; /* Xanh lá cây */
+}
+
+a.admin-link:visited {
+  color: #00ff00; /* Xanh lá cây luôn kể cả đã click */
+}
