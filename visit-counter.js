@@ -9,14 +9,15 @@ import {
 
 // ✅ Thông tin Firebase của bạn
 const firebaseConfig = {
-  apiKey: "AIzaSyAGibQhw21VUcPINMMKWV-rosFiyr3rRAs",
-  authDomain: "ngocdo1.firebaseapp.com",
-  databaseURL: "https://ngocdo1-default-rtdb.firebaseio.com",
-  projectId: "ngocdo1",
-  storageBucket: "ngocdo1.appspot.com",
-  messagingSenderId: "598746900527",
-  appId: "1:598746900527:web:8231c7acd0ad49ccd7beda"
-};
+    apiKey: "AIzaSyCEjYts4d4zjsnGpFIGvAm-G5lmXMkCfsk",
+    authDomain: "bodemtruycap.firebaseapp.com",
+    databaseURL: "https://bodemtruycap-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "bodemtruycap",
+    storageBucket: "bodemtruycap.firebasestorage.app",
+    messagingSenderId: "988148784519",
+    appId: "1:988148784519:web:8036c73f8c24122b9cc722",
+    measurementId: "G-D1ZWL1PPKY"
+  };
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
