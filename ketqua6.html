@@ -1,139 +1,200 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <title>Lời Yêu Thương Mượt KHÔNG XOAY</title>
+  <meta charset="UTF-8">
+  <title>Lời Yêu Thương</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    html, body { margin:0; padding:0; overflow:hidden; background:#000; height:100%; }
-    canvas { display: block; }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style6.css">
 </head>
 <body>
 
-<canvas id="scene"></canvas>
-<audio id="sound" loop>
-  <source src="maihongnhan.mp3" type="audio/mpeg" />
-</audio>
+  <div class="sparkle-container" id="sparkles"></div>
+  <div class="scene" id="scene"></div>
+  <!-- Chỉnh file nhạc -->
+  <audio id="sound" loop>
+    <source src="maihongnhan.mp3" type="audio/mpeg" /> 
+  </audio>
 
 <script>
-const canvas = document.getElementById('scene');
-const ctx = canvas.getContext('2d');
-function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-resize(); window.addEventListener('resize', resize);
+  const scene = document.getElementById("scene");
+  const sparkleContainer = document.getElementById("sparkles");
+  const audio = document.getElementById("sound");
 
-const audio = document.getElementById('sound');
-document.addEventListener("click", () => audio.play(), { once: true });
-document.addEventListener("touchstart", () => audio.play(), { once: true });
+  // Nhận dữ liệu từ URL
+  const params = new URLSearchParams(window.location.search);
+  const customText = decodeURIComponent(params.get('text') || '');
+  const customMusic = decodeURIComponent(params.get('music') || '');
+  const customImages = JSON.parse(localStorage.getItem('selectedImages') || '[]');
 
-const params = new URLSearchParams(window.location.search);
-const customText = decodeURIComponent(params.get('text') || '');
-const customMusic = decodeURIComponent(params.get('music') || '');
-const customImages = JSON.parse(localStorage.getItem('selectedImages') || '[]');
-if (customMusic) {
-  audio.querySelector('source').src = customMusic;
-  audio.load();
-}
+  const texts = [
+    " "
+  ];
+  const icons = ["💖", "🎁", "💝"];
 
-const texts = ["Gió"];
-const icons = ["🎂","🎉","💖","🌟","💐","🎁","✨","💝"];
-if (customText) {
-  const lines = customText.split(/\n+/).map(l=>l.trim()).filter(l=>l);
-  texts.unshift(...lines);
-}
-const images = [];
-customImages.forEach(src => { const img = new Image(); img.src = src; images.push(img); });
-
-const particles = [];
-const sparkles = [];
-const MAX_PARTICLES = 50;
-
-function spawnParticle() {
-  if (particles.length >= MAX_PARTICLES) return;
-  const r = Math.random();
-  if (r < 0.4) {
-    particles.push({
-      type:'text',
-      value: texts[Math.floor(Math.random()*texts.length)],
-      x: Math.random()*canvas.width,
-      y: -50,
-      speed: 2 + Math.random()*2,
-      size: 20 + Math.random()*10,
-      hue: Math.random()*360
-    });
-  } else if (r < 0.8) {
-    particles.push({
-      type:'icon',
-      value: icons[Math.floor(Math.random()*icons.length)],
-      x: Math.random()*canvas.width,
-      y: -50,
-      speed: 2 + Math.random()*2,
-      size: 24 + Math.random()*10
-    });
-  } else if (images.length) {
-    particles.push({
-      type:'image',
-      value: images[Math.floor(Math.random()*images.length)],
-      x: Math.random()*canvas.width,
-      y: -50,
-      speed: 2 + Math.random()*2,
-      size: 40 + Math.random()*20
-    });
+  // Gán nhạc nếu có
+  if (customMusic) {
+    audio.querySelector('source').src = customMusic;
+    audio.load();
   }
-}
 
-function spawnSparkle() {
-  sparkles.push({
-    x: Math.random()*canvas.width,
-    y: Math.random()*canvas.height,
-    size: 2 + Math.random()*2,
-    alpha: Math.random(),
-    life: 200 + Math.random()*200
-  });
-}
-for (let i=0; i<80; i++) spawnSparkle();
+  // Thêm text custom nếu có
+  if (customText) {
+    const lines = customText.split(/\n+/).map(line => line.trim()).filter(line => line);
+    texts.unshift(...lines);
+  }
 
-function loop() {
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+  function createFallingText() {
+    const text = document.createElement("div");
+    text.className = "falling-text";
+    text.textContent = texts[Math.floor(Math.random() * texts.length)];
+    text.style.left = `${Math.random() * window.innerWidth}px`;
+    text.style.transform = `translateZ(${(Math.random() - 0.5) * 1000}px)`;
+    scene.appendChild(text);
+    setTimeout(() => text.remove(), 4000);
+  }
 
-  // Sparkle nền
-  sparkles.forEach((s,i)=>{
-    ctx.fillStyle = `rgba(255,255,255,${s.alpha})`;
-    ctx.fillRect(s.x,s.y,s.size,s.size);
-    s.life--;
-    if (s.life<0) { sparkles.splice(i,1); spawnSparkle(); }
-  });
+  function createFallingIcon() {
+    const icon = document.createElement("div");
+    icon.className = "falling-icon";
+    icon.textContent = icons[Math.floor(Math.random() * icons.length)];
+    icon.style.left = `${Math.random() * window.innerWidth}px`;
+    icon.style.transform = `translateZ(${(Math.random() - 0.5) * 1000}px)`;
+    scene.appendChild(icon);
+    setTimeout(() => icon.remove(), 4000);
+  }
 
-  // Hạt rơi thẳng
-  particles.forEach((p,i)=>{
-    p.y += p.speed;
-    ctx.save();
-    ctx.translate(p.x, p.y);
+  function createFallingImage() {
+    if (!customImages.length) return;
+    const img = document.createElement("img");
+    const randomImage = customImages[Math.floor(Math.random() * customImages.length)];
+    img.src = randomImage;
+    img.className = "falling-image";
+    img.style.position = "absolute";
+    img.style.width = "50px";
+    img.style.left = `${Math.random() * window.innerWidth}px`;
+    img.style.transform = `translateZ(${(Math.random() - 0.5) * 1000}px)`;
+    scene.appendChild(img);
+    setTimeout(() => img.remove(), 4000);
+  }
 
-    if (p.type==='text') {
-      p.hue += 1;
-      ctx.fillStyle = `hsl(${p.hue},100%,50%)`;
-      ctx.shadowColor = ctx.fillStyle;
-      ctx.shadowBlur = 10;
-      ctx.font = `${p.size}px Poppins`;
-      ctx.fillText(p.value, 0,0);
-    } else if (p.type==='icon') {
-      ctx.font = `${p.size}px Poppins`;
-      ctx.fillStyle = "#fff";
-      ctx.fillText(p.value, 0,0);
-    } else if (p.type==='image') {
-      ctx.drawImage(p.value, -p.size/2, -p.size/2, p.size, p.size);
+  setInterval(() => {
+    createFallingText();
+    createFallingIcon();
+    createFallingImage();
+  }, 200);
+
+  // Sửa phần phát nhạc
+  function playMusicOnce() {
+    if (audio.paused) {
+
+      audio.play().catch(err => console.log(err));
     }
-    ctx.restore();
+    document.removeEventListener("click", playMusicOnce);
+    document.removeEventListener("touchstart", playMusicOnce);
+  }
 
-    if (p.y > canvas.height + 50) particles.splice(i,1);
+  document.addEventListener("click", playMusicOnce);
+  document.addEventListener("touchstart", playMusicOnce);
+
+  // XÓA window.onload tự động phát
+  // window.addEventListener("load", () => {
+  //   audio.currentTime = 48;
+  //   audio.play().catch(() => {});
+  // });
+
+  let isDragging = false;
+  let lastPos = { x: 0, y: 0 };
+  let currentRotateX = 0;
+  let currentRotateY = 0;
+  let zoom = 1;
+
+  function applyTransform() {
+    scene.style.transform = `
+      rotateX(${currentRotateX}deg)
+      rotateY(${currentRotateY}deg)
+      scale(${zoom})
+    `;
+  }
+
+  document.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    lastPos.x = e.clientX;
+    lastPos.y = e.clientY;
+    document.body.style.cursor = "grabbing";
   });
 
-  if (particles.length < MAX_PARTICLES && Math.random()<0.7) spawnParticle();
-  requestAnimationFrame(loop);
-}
-loop();
+  document.addEventListener("mouseup", () => {
+    isDragging = false;
+    document.body.style.cursor = "grab";
+  });
+
+  document.addEventListener("mouseleave", () => {
+    isDragging = false;
+    document.body.style.cursor = "grab";
+  });
+
+  document.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    const deltaX = e.clientX - lastPos.x;
+    const deltaY = e.clientY - lastPos.y;
+
+    currentRotateY += deltaX * 0.2;
+    currentRotateX -= deltaY * 0.2;
+
+    applyTransform();
+
+    lastPos.x = e.clientX;
+    lastPos.y = e.clientY;
+  });
+
+  document.addEventListener("wheel", (e) => {
+    e.preventDefault();
+    zoom += e.deltaY * -0.001;
+    zoom = Math.min(Math.max(zoom, 0.2), 5);
+    applyTransform();
+  }, { passive: false });
+
+  document.addEventListener("touchstart", (e) => {
+    isDragging = true;
+    lastPos.x = e.touches[0].clientX;
+    lastPos.y = e.touches[0].clientY;
+  }, { passive: false });
+
+  document.addEventListener("touchend", () => {
+    isDragging = false;
+  });
+
+  document.addEventListener("touchmove", (e) => {
+    if (!isDragging) return;
+    const touch = e.touches[0];
+    const deltaX = touch.clientX - lastPos.x;
+    const deltaY = touch.clientY - lastPos.y;
+
+    currentRotateY += deltaX * 0.2;
+    currentRotateX -= deltaY * 0.2;
+
+    applyTransform();
+
+    lastPos.x = touch.clientX;
+    lastPos.y = touch.clientY;
+  }, { passive: false });
+
+  function createSparkles(count = 80) {
+    for (let i = 0; i < count; i++) {
+      const s = document.createElement("div");
+      s.className = "sparkle";
+      s.style.top = `${Math.random() * 100}%`;
+      s.style.left = `${Math.random() * 100}%`;
+      s.style.animationDuration = `${3 + Math.random() * 3}s`;
+      s.style.animationDelay = `${Math.random() * 4}s`;
+      sparkleContainer.appendChild(s);
+    }
+  }
+
+  createSparkles(20);
 </script>
+<script type="module" src="visit-counter.js"></script>
 
 </body>
 </html>
