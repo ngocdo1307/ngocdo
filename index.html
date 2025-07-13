@@ -71,19 +71,20 @@
   const counterRef = ref(db, "visitCount");
 
   runTransaction(counterRef, current => {
-    return (current || 0) + 1;
-  });
+  return (current || 0) + 1;
+})
+.then(result => {
+  if (result.committed) {
+    document.getElementById("visitCount").innerText = result.snapshot.val();
+  } else {
+    document.getElementById("visitCount").innerText = "Lỗi cập nhật";
+  }
+})
+.catch(err => {
+  console.error(err);
+  document.getElementById("visitCount").innerText = "Lỗi";
+});
 
-  get(counterRef).then(snapshot => {
-    if (snapshot.exists()) {
-      document.getElementById("visitCount").innerText = snapshot.val();
-    } else {
-      document.getElementById("visitCount").innerText = "0";
-    }
-  }).catch(err => {
-    console.error(err);
-    document.getElementById("visitCount").innerText = "Lỗi";
-  });
 </script>
 
 </body>
