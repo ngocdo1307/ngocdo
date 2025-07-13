@@ -13,8 +13,8 @@ body {
   background-color: rgba(0, 0, 0, 0.4);
   padding: 30px;
   border-radius: 10px;
-  width: 80%;
-  max-width: 500px;
+  width: 100%;         /* chiếm 100% bề ngang cha */
+  max-width: 400px;    /* nhưng tối đa 400px */
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
   text-align: center;
 }
