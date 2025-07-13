@@ -1,11 +1,11 @@
 // visit-counter.js
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
 import {
   getDatabase,
   ref,
   get,
   set
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
 
 // ✅ Thông tin Firebase của bạn
 const firebaseConfig = {
