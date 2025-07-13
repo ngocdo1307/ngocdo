@@ -5,71 +5,48 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0;
+  padding: 20px; /* Thêm padding cho mobile không bị sát */
 }
 
 .container {
   background-color: rgba(0, 0, 0, 0.4);
-  padding: 30px 20px; /* thêm padding ngang */
+  padding: 30px 20px;
   border-radius: 10px;
-  width: 90%;         /* chiếm 90% màn hình */
-  max-width: 400px;   /* không vượt quá 400px */
+  width: 100%;
+  max-width: 960px;  /* Dashboard rộng tối đa */
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
   text-align: center;
 }
 
-input {
-  width: 100%;
-  padding: 12px;      /* to hơn */
-  margin-top: 12px;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;    /* to chữ */
+/* Tiêu đề to hơn */
+.container h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
 }
 
-button {
-  width: 100%;
-  padding: 14px;      /* nút to hơn */
-  margin-top: 20px;
-  background-color: #38b2ac;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 16px;
+/* Email chào mừng to */
+#welcome-email {
+  font-size: 18px;
+  margin-bottom: 20px;
 }
 
-button:hover {
-  background-color: #319795;
-}
-/* Bổ sung: Khung container riêng cho dashboard */
-.container.dashboard {
-  max-width: 800px;  /* rộng hơn form login */
-  width: 95%;
-  margin: 40px auto;
-  padding: 30px 20px;
-}
-
-/* Bổ sung: Grid responsive */
+/* Lưới nút chức năng responsive */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 20px;
   margin: 30px 0;
 }
 
-.grid a {
-  text-decoration: none;
-}
-
+/* Nút chức năng to hơn */
 .grid button {
   width: 100%;
-  padding: 15px 10px;
-  font-size: 16px;
-  border-radius: 8px;
+  padding: 16px;
+  font-size: 18px;
   border: none;
+  border-radius: 8px;
   background: #38b2ac;
   color: #fff;
   font-weight: bold;
@@ -81,38 +58,49 @@ button:hover {
   background: #319795;
 }
 
-/* Nút đăng xuất cũng to đẹp */
+/* Nút đăng xuất */
 #logout {
   width: 100%;
-  padding: 15px;
-  font-size: 16px;
-  margin-top: 20px;
-  background: #ff3399;
-  color: #fff;
+  padding: 16px;
+  font-size: 18px;
+  background: #e53e3e;
   border: none;
   border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
   cursor: pointer;
+  margin-top: 20px;
 }
 
 #logout:hover {
-  background: #cc267a;
+  background: #c53030;
 }
 
-.hidden {
-  display: none;
-}
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-  margin-top: 20px;
-}
-a.admin-link {
-  color: #00ff00 !important;
-}
+/* Responsive cho mobile: khung sát lề hơn */
+@media (max-width: 480px) {
+  .container {
+    padding: 20px 15px;
+  }
 
-a.admin-link:visited {
-  color: #00ff00 !important;
+  .grid {
+    grid-template-columns: 1fr; /* Một cột trên màn nhỏ */
+  }
+
+  .grid button {
+    font-size: 22px; /* Chữ to hơn nữa nếu muốn */
+    padding: 18px;
+  }
+
+  #logout {
+    font-size: 20px;
+    padding: 18px;
+  }
+
+  .container h2 {
+    font-size: 24px;
+  }
+
+  #welcome-email {
+    font-size: 16px;
+  }
 }
-
-
