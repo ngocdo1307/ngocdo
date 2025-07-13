@@ -4,62 +4,50 @@ body {
   color: #fff;
   display: flex;
   justify-content: center;
-  padding: 40px 20px; /* padding đều 4 phía, bỏ height: 100vh */
+  align-items: center;
+  height: 1000vh;
   margin: 0;
-  box-sizing: border-box;
 }
 
 .container {
   background-color: rgba(0, 0, 0, 0.4);
-  padding: 30px 20px;
+  padding: 30px;
   border-radius: 10px;
-  width: 100%;
-  max-width: 1000px; /* hợp lý hơn cho mobile */
+  width: 300px;
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
   text-align: center;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 cột */
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.grid a {
-  text-decoration: none;
-}
-
-.grid button {
+input {
   width: 100%;
-  padding: 20px 0; /* padding dọc lớn hơn, nút cao đều */
-  font-size: 16px;
-  background: #38b2ac;
+  padding: 10px;
+  margin-top: 10px;
   border: none;
   border-radius: 5px;
-  color: #fff;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  background-color: #38b2ac;
+  border: none;
+  border-radius: 5px;
+  color: white;
   font-weight: bold;
   cursor: pointer;
 }
 
-.grid button:hover {
-  background: #319795;
+button:hover {
+  background-color: #319795;
 }
 
-/* Tùy chọn: nếu muốn tất cả nút cao bằng nhau */
+.hidden {
+  display: none;
+}
 .grid {
-  grid-auto-rows: 60px; /* hoặc điều chỉnh số px theo ý */
-}
-
-@media (max-width: 500px) {
-  .container {
-    padding: 20px 15px;
-  }
-  .grid {
-    gap: 10px;
-  }
-  .grid button {
-    font-size: 14px;
-    padding: 16px 0;
-  }
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 20px;
 }
