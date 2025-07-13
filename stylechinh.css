@@ -52,9 +52,11 @@ button:hover {
   margin-top: 20px;
 }
 a.admin-link {
-  color: #00ff00; /* Xanh lá cây */
+  color: #00ff00 !important;
 }
 
 a.admin-link:visited {
-  color: #00ff00; /* Xanh lá cây luôn kể cả đã click */
+  color: #00ff00 !important;
 }
+
+
