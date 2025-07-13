@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Trang tạo QR</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff0f5;
+      text-align: center;
+      padding: 40px;
+    }
+    input, select, textarea {
+      font-size: 16px;
+      padding: 10px;
+      margin: 10px;
+      border-radius: 8px;
+      border: 2px solid #ff66cc;
+      width: 80%;
+      max-width: 500px;
+    }
+    button {
+      font-size: 18px;
+      padding: 10px 30px;
+      background: #ff66cc;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    .radio-group {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 10px;
+    }
+    .color-picker {
+      width: 80px;
+      height: 50px;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tạo mã QR</h1>
+
+  <form action="ketqua98.html" method="GET">
+    <input type="text" name="link" placeholder="Nhập link tại đây" required><br>
+    <input type="text" name="caption" placeholder="Nhập dòng chữ bên dưới QR"><br>
+
+    <label for="color">Bấn vào ô màu bên dưới để chọn màu QR:</label><br>
+    <input type="color" name="color" value="#00cc66" class="color-picker"><br>
+
+    <div class="radio-group">
+      <label><input type="radio" name="style" value="normal" checked> QR thường</label>
+      <label><input type="radio" name="style" value="heart"> QR trái tim</label>
+    </div>
+
+    <button type="submit">Tạo mã QR</button>
+  </form>
+ 
+<script type="module" src="visit-counter.js"></script>
+</body>
+</html>

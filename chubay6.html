@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nhập dữ liệu</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      text-align: left;
+      font-weight: 600;
+      color: #555;
+    }
+    textarea, select, input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      resize: vertical;
+    }
+    button {
+      margin-top: 25px;
+      padding: 12px 25px;
+      font-size: 16px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Nhập thông tin</h1>
+
+    <label>Lời chúc:</label>
+    <textarea id="textInput" rows="4" placeholder="Nhập lời chúc dài, nhiều dòng..."></textarea>
+
+    <label>Chọn nhạc:</label>
+    <select id="musicSelect">
+      <option value="mBatCocConTim.mp3">Bắt Cóc Con Tim</option>
+      <option value="mnoinaycoanh.mp3">Nơi Này Có Anh</option>
+      <option value="manhdongynha.mp3">Anh Đồng Ý Nha</option>
+      <option value="mvannho.mp3">Vẫn Nhớ</option>
+      <option value="mcunganh.mp3">Cùng Anh</option>
+      <option value="mkhinao.mp3">Khi Nào</option>
+      <option value="maihongnhan.mp3">Ải Hồng Nhan</option>
+      <option value="mbimattraitim.mp3">Bí Mật Trái Tim</option>
+      <option value="mhaylacuarienganh.mp3">Hãy Là Của Riêng Anh</option>
+    </select>
+
+    <label>Chọn ảnh (nhiều):</label>
+    <input type="file" id="imgInput" accept="image/*" multiple>
+
+    <button onclick="start()">Bắt đầu</button>
+  </div>
+
+  <script>
+    function start() {
+      const text = encodeURIComponent(document.getElementById("textInput").value.trim());
+      const music = encodeURIComponent(document.getElementById("musicSelect").value);
+      const imgFiles = document.getElementById("imgInput").files;
+
+      // Lưu nhiều ảnh
+      if (imgFiles.length > 0) {
+        const readers = [];
+        const imageDataList = [];
+        for (let i = 0; i < imgFiles.length; i++) {
+          readers[i] = new FileReader();
+          readers[i].onload = function(e) {
+            imageDataList.push(e.target.result);
+            if (imageDataList.length === imgFiles.length) {
+              // Lưu tất cả
+              localStorage.setItem("selectedImages", JSON.stringify(imageDataList));
+              window.location.href = `ketqua6.html?text=${text}&music=${music}`;
+            }
+          };
+          readers[i].readAsDataURL(imgFiles[i]);
+        }
+      } else {
+        localStorage.removeItem("selectedImages");
+        window.location.href = `ketqua6.html?text=${text}&music=${music}`;
+      }
+    }
+  </script>
+  <!-- ✅ File auth-check.js phải nằm ngoài style -->
+  <script type="module" src="auth-check.js"></script>
+  <script type="module" src="visit-counter.js"></script>
+</body>
+</html>

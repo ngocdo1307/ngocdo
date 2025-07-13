@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quà Tặng Bé iu 💝</title>
+  <link rel="stylesheet" href="style3.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+  <div id="startStage">
+    <img src="giftbox3.png" alt="Hộp quà" class="gift-image" onclick="startLoveStage()" />
+    <p>Nhấn vào hộp quà để mở điều bất ngờ!</p>
+  </div>
+
+  <div id="loveStage" style="display:none;">
+    <p id="lovePrompt">Chạm đủ 4 love ❤️ để nhận combo quà từ anh nè</p>
+    <div id="loveIcons">
+      <span class="love-icon" onclick="tapLove(1)">❤️</span>
+      <span class="love-icon" onclick="tapLove(2)">❤️</span>
+      <span class="love-icon" onclick="tapLove(3)">❤️</span>
+      <span class="love-icon" onclick="tapLove(4)">❤️</span>
+    </div>
+  </div>
+
+  <div id="cardStage" style="display:none;">
+    <div class="card">
+      <img src="cute3.gif" alt="Cute gif" class="gif" />
+      <p id="loveMsg"></p>
+    </div>
+  </div>
+
+  <audio id="bgMusic" loop></audio>
+
+  <script>
+    const loveTaps = new Set();
+    let userName = '';
+
+    window.onload = function() {
+      const params = new URLSearchParams(window.location.search);
+      userName = decodeURIComponent(params.get('name') || '');
+      const song = decodeURIComponent(params.get('song') || '');
+
+      const audio = document.getElementById('bgMusic');
+      audio.src = song;
+    };
+
+    function startLoveStage() {
+      document.getElementById('startStage').style.display = 'none';
+      document.getElementById('loveStage').style.display = 'block';
+
+      const audio = document.getElementById('bgMusic');
+      audio.play().catch(err => console.warn('Không thể phát nhạc:', err));
+    }
+
+    function tapLove(id) {
+      if (loveTaps.has(id)) return;
+
+      const loveIcon = document.querySelector(`#loveIcons .love-icon:nth-child(${id})`);
+      loveIcon.classList.add('tapped');
+      loveTaps.add(id);
+
+      if (loveTaps.size === 4) {
+        Swal.fire({
+          title: 'Đủ 4 love rồi nè!',
+          text: 'Sẵn sàng nhận quà chưa? 💖',
+          timer: 1500,
+          showConfirmButton: false,
+          background: '#fffbe7',
+        }).then(() => {
+          switchStage('loveStage', 'cardStage');
+
+          typeWriterEffect(
+            `Chúc ${userName} của anh một ngày thật vui vẻ như một đứa trẻ, nhưng được anh yêu như một nữ hoàng 👑. Dù em có lớn bao nhiêu thì trong tim anh, em vẫn là công chúa bé bỏng cần được cưng chiều mỗi ngày! 💘`,
+            'loveMsg',
+            () => {
+              // ✅ Thêm I Love You sau khi gõ xong
+              const fromTag = document.createElement("div");
+              fromTag.id = 'fromTag';
+              fromTag.textContent = "I Love You";
+              fromTag.style.marginTop = "20px";
+              fromTag.style.opacity = "0";
+              fromTag.style.transition = "opacity 1s ease";
+              document.getElementById('loveMsg').appendChild(fromTag);
+
+              setTimeout(() => {
+                fromTag.style.opacity = "1";
+              }, 500);
+            }
+          );
+        });
+      }
+    }
+
+    function switchStage(fromId, toId) {
+      document.getElementById(fromId).style.display = 'none';
+      document.getElementById(toId).style.display = 'block';
+    }
+
+    function typeWriterEffect(text, elementId, callback) {
+      const element = document.getElementById(elementId);
+      let i = 0;
+      const speed = 50;
+      element.textContent = '';
+
+      (function type() {
+        if (i < text.length) {
+          element.textContent += text.charAt(i);
+          i++;
+          setTimeout(type, speed);
+        } else {
+          callback?.();
+        }
+      })();
+    }
+  </script>
+  <script type="module" src="visit-counter.js"></script>
+</body>
+</html>

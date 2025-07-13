@@ -1,0 +1,175 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #ffe6f0;
+  font-family: 'Segoe UI', sans-serif;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.content {
+  position: relative;
+  text-align: center;
+  z-index: 1;
+  padding-top: 40px;
+}
+
+h1 {
+  color: #d63384;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  background-color: #ff80ab;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+button:hover {
+  transform: scale(1.05);
+  background-color: #ff4d94;
+}
+
+#boxContainer {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.box {
+  position: absolute;
+  width: 220px;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  background-color: #f1f1f1;
+  box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+  animation: pop 0.5s ease;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+.box-header {
+  background-color: #0078d7;
+  color: white;
+  padding: 6px 10px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.box-body {
+  padding: 12px;
+  font-size: 15px;
+  color: #333;
+  background-color: white;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.heart {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #ff5c8d;
+  transform: rotate(45deg);
+  animation: float 2s ease-out forwards;
+  opacity: 0.9;
+  z-index: 0;
+}
+
+.heart::before,
+.heart::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #ff5c8d;
+  border-radius: 50%;
+}
+
+.heart::before {
+  top: -10px;
+  left: 0;
+}
+
+.heart::after {
+  left: -10px;
+  top: 0;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) scale(1) rotate(45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) scale(1.5) rotate(45deg);
+    opacity: 0;
+  }
+}
+.heart {
+  position: fixed; /* để nó nổi phía trên và không bị cuộn */
+  width: 20px;
+  height: 20px;
+  transform: rotate(45deg);
+  animation: float 2s ease-out forwards;
+  opacity: 0.9;
+  z-index: 9999; /* Đảm bảo nằm trên cùng */
+}
+
+.heart::before,
+.heart::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  top: 0;
+  left: 0;
+}
+
+.heart::before {
+  top: -10px;
+}
+
+.heart::after {
+  left: -10px;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) scale(1) rotate(45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) scale(1.5) rotate(45deg);
+    opacity: 0;
+  }
+}
+input {
+  padding: 15px 25px;
+  font-size: 22px;  /* To chữ hơn */
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 20px;
+  width: 400px;     /* To hơn */
+  max-width: 90%;
+}

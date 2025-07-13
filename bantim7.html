@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nhập dữ liệu</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+    }
+    .container h1 {
+      margin-bottom: 20px;
+      color: #333;
+      font-weight: 600;
+    }
+    textarea, select {
+      width: 100%;
+      padding: 12px 15px;
+      margin-top: 10px;
+      font-size: 16px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    textarea:focus, select:focus {
+      border-color: #007bff;
+    }
+    button {
+      margin-top: 25px;
+      padding: 14px 30px;
+      background: #007bff;
+      color: white;
+      border: none;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+    button:hover {
+      background: #0056b3;
+      transform: translateY(-2px);
+    }
+    h3 {
+      margin-top: 20px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Nhập lời chào</h1>
+    <textarea id="textInput" rows="4" placeholder="Ví dụ: Chúc mừng sinh nhật vợ iu ... chia làm nhiều dòng nếu quá dài"></textarea>
+
+    <h3>Chọn nhạc:</h3>
+    <select id="musicSelect">
+      <option value="mBatCocConTim.mp3">Bắt Cóc Con Tim</option>
+      <option value="mnoinaycoanh.mp3">Nơi Này Có Anh</option>
+      <option value="manhdongynha.mp3">Anh Đồng Ý Nha</option>
+      <option value="mvannho.mp3">Vẫn Nhớ</option>
+      <option value="mcunganh.mp3">Cùng Anh</option>
+      <option value="mkhinao.mp3">Khi Nào</option>
+      <option value="maihongnhan.mp3">Ải Hồng Nhan</option>
+      <option value="mbimattraitim.mp3">Bí Mật Trái Tim</option>
+      <option value="mhaylacuarienganh.mp3">Hãy Là Của Riêng Anh</option>
+    </select>
+
+    <button onclick="start()">Bắt đầu</button>
+  </div>
+
+  <script>
+    function start() {
+      const text = encodeURIComponent(document.getElementById('textInput').value.trim());
+      const music = encodeURIComponent(document.getElementById('musicSelect').value);
+      window.location.href = `ketqua7.html?text=${text}&music=${music}`;
+    }
+  </script>
+  <!-- ✅ File auth-check.js phải nằm ngoài style -->
+  <script type="module" src="auth-check.js"></script>
+  <script type="module" src="visit-counter.js"></script>
+</body>
+</html>

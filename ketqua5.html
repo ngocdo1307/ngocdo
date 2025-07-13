@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kết quả</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 50px 20px;
+      min-height: 100vh;
+      box-sizing: border-box;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      overflow-x: hidden; /* Chỉ ẩn tràn ngang, không ẩn tràn dọc */
+    }
+    #question {
+      font-size: 24px;
+      color: #ff6699;
+      position: relative;
+      z-index: 1;
+    }
+    #text {
+      font-size: 20px;
+      margin: 20px 0;
+      color: #555;
+      position: relative;
+      z-index: 1;
+    }
+    img {
+      width: 200px;
+      max-width: 80%;
+      border-radius: 15px;
+      position: relative;
+      z-index: 1;
+    }
+    .buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap; /* Cho nút "Không X" xuống dòng nếu nút "Có ạ" to */
+      margin-top: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    #yes, #no {
+      font-size: 20px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s, font-size 0.2s;
+    }
+    #yes {
+      background: #ff99cc;
+      color: white;
+    }
+    #no {
+      background: #cccccc;
+      color: #333;
+    }
+    #yes:hover, #no:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <h1 id="question"></h1>
+  <p id="text"></p>
+  <img id="gif" src="" alt="cute gif"><br>
+  <div class="buttons">
+    <button id="yes">Có ạ</button>
+    <button id="no">Không X</button>
+  </div>
+
+  <audio id="music" src="" preload="auto"></audio>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const question = params.get('question');
+    const text1 = params.get('text1');
+    const text2 = params.get('text2');
+    const music = params.get('music');
+    const bg = params.get('bg');
+    const gif1 = params.get('gif1');
+    const gif2 = params.get('gif2');
+
+    document.getElementById('question').textContent = question;
+    document.getElementById('text').textContent = text1;
+    document.getElementById('gif').src = gif1;
+    document.getElementById('music').src = music;
+
+    if (bg) {
+      document.body.style.backgroundImage = `url('${bg}')`;
+    } else {
+      document.body.style.background = 'linear-gradient(135deg, #ffe6f0, #ffe0f7, #ffe6f0)';
+    }
+
+    let yesBtn = document.getElementById('yes');
+    let noBtn = document.getElementById('no');
+    let yesSize = 20;
+
+    noBtn.onclick = () => {
+      yesSize += 5;
+      yesBtn.style.fontSize = yesSize + 'px';
+
+      // Auto scroll xuống dưới nếu nút phình quá
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+      });
+    };
+
+    yesBtn.onclick = () => {
+      document.getElementById('text').textContent = text2;
+      document.getElementById('gif').src = gif2;
+      document.getElementById('music').play();
+      yesBtn.style.display = 'none';
+      noBtn.style.display = 'none';
+    };
+  </script>
+  <script type="module" src="visit-counter.js"></script>
+</body>
+</html>

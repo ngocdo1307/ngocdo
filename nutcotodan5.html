@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nhập câu hỏi</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+      background: linear-gradient(135deg, #ffe6f0, #ffe0f7, #ffe6f0);
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    input, select, button {
+      margin: 10px;
+      padding: 10px;
+      width: 300px;
+      font-size: 16px;
+      border: 2px solid #ff99cc;
+      border-radius: 8px;
+      outline: none;
+    }
+    button {
+      background: #ff99cc;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #ff66aa;
+    }
+  </style>
+</head>
+<body>
+  <h1>💖 Nhập nội dung 💖</h1>
+
+  <input type="text" id="question" placeholder="Nhập câu hỏi ví dụ: Em thích anh không? 😍"><br>
+  <input type="text" id="text1" placeholder="Nhập câu nói bên dưới câu hỏi🥰"><br>
+  <input type="text" id="text2" placeholder="Nhập câu khi bấm Có sẽ hiển thị 💘"><br>
+
+  <label>Chọn ảnh nền:</br>
+    <input type="file" id="bg" accept="image/*">
+  </label><br>
+
+  <label>Chọn nhạc cute:</br>
+    <select id="music">
+      <option value="mBatCocConTim.mp3">Bắt Cóc Con Tim</option>
+      <option value="mnoinaycoanh.mp3">Nơi Này Có Anh</option>
+      <option value="manhdongynha.mp3">Anh Đồng Ý Nha</option>
+      <option value="mvannho.mp3">Vẫn Nhớ</option>
+      <option value="mcunganh.mp3">Cùng Anh</option>
+      <option value="mkhinao.mp3">Khi Nào</option>
+      <option value="maihongnhan.mp3">Ải Hồng Nhan</option>
+      <option value="mbimattraitim.mp3">Bí Mật Trái Tim</option>
+      <option value="mhaylacuarienganh.mp3">Hãy là của riêng anh</option>
+    </select>
+  </label><br>
+
+  <button onclick="start()">Bắt đầu</button>
+
+  <script>
+    function start() {
+      const q = encodeURIComponent(document.getElementById('question').value);
+      const t1 = encodeURIComponent(document.getElementById('text1').value);
+      const t2 = encodeURIComponent(document.getElementById('text2').value);
+      const m = encodeURIComponent(document.getElementById('music').value);
+      const fileInput = document.getElementById('bg');
+      const gif1 = encodeURIComponent("cute51.gif");
+      const gif2 = encodeURIComponent("cute52.gif");
+
+      if (fileInput.files.length > 0) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const bgDataUrl = encodeURIComponent(e.target.result);
+          location.href = `ketqua5.html?question=${q}&text1=${t1}&text2=${t2}&music=${m}&bg=${bgDataUrl}&gif1=${gif1}&gif2=${gif2}`;
+        };
+        reader.readAsDataURL(fileInput.files[0]);
+      } else {
+        // Không chọn ảnh nền → không có param bg
+        location.href = `ketqua5.html?question=${q}&text1=${t1}&text2=${t2}&music=${m}&gif1=${gif1}&gif2=${gif2}`;
+      }
+    }
+  </script>
+</body>
+</html>

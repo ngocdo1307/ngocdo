@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tỏ tình 🥰</title>
+  <style>
+    body {
+      background-color: #fff0f5;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+    h1 {
+      color: #ff3399;
+      font-size: 36px;
+      margin-top: 60px;
+    }
+    p {
+      font-size: 20px;
+      margin-bottom: 30px;
+    }
+    .btn {
+      font-size: 18px;
+      padding: 12px 30px;
+      margin: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+    #yesBtn { background-color: #ff66b2; color: white; }
+    #yesBtn:hover { background-color: #e60073; }
+    #noBtn { background-color: #ccc; position: relative; }
+    #message {
+      margin-top: 40px;
+      font-size: 24px;
+      color: #ff0066;
+      display: none;
+    }
+    .heart-float {
+      position: fixed; bottom: 0;
+      font-size: 24px; color: red;
+      animation: float 4s linear forwards;
+      pointer-events: none; user-select: none;
+    }
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+    }
+    #popupOverlay {
+      display: none; position: fixed;
+      top: 0; left: 0; right:0; bottom:0;
+      background: rgba(0,0,0,0.6);
+      z-index: 1000; justify-content: center; align-items: center;
+    }
+    #popupBox {
+      background: white; border-radius: 15px; padding: 30px 20px;
+      max-width: 350px; box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      text-align: center; font-size: 22px; color: #ff3399;
+    }
+    #confirmBtn {
+      margin-top: 20px; background-color: #ff66b2;
+      border: none; padding: 12px 25px; border-radius: 10px;
+      font-size: 18px; color: white; cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #confirmBtn:hover { background-color: #e60073; }
+  </style>
+</head>
+<body>
+  <h1 id="question">...</h1>
+  <p>Hãy trả lời thật lòng nha 😳</p>
+  <button class="btn" id="yesBtn">Đồng ý 🥰</button>
+  <button class="btn" id="noBtn">Không! 😤</button>
+  <div id="message"></div>
+
+  <!-- Popup -->
+  <div id="popupOverlay">
+    <div id="popupBox">
+      <div>Wow ! Quả Là Một Lựa Chọn Sáng Suốt</div>
+      <button id="confirmBtn">Xác Nhận: Tôi Tự Nguyện Không Bị Ép Buộc</button>
+    </div>
+  </div>
+
+  <audio id="bgMusic" loop></audio>
+
+  <script>
+    // Lấy tham số từ URL
+    const params = new URLSearchParams(window.location.search);
+    const question = decodeURIComponent(params.get('q') || "Em có đồng ý làm người yêu anh không?");
+    const answer = decodeURIComponent(params.get('a') || "Yêu em nhiều lắm luôn á ❤️❤️❤️");
+    const music = decodeURIComponent(params.get('m') || "");
+
+    // Gán ra trang
+    document.getElementById("question").innerText = question;
+    document.getElementById("message").innerText = answer;
+    if (music) {
+      document.getElementById("bgMusic").innerHTML = `<source src="${music}" type="audio/mpeg">`;
+    }
+
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const message = document.getElementById("message");
+    const audio = document.getElementById("bgMusic");
+    const popupOverlay = document.getElementById("popupOverlay");
+    const confirmBtn = document.getElementById("confirmBtn");
+
+    function moveNoBtn() {
+      const x = Math.random() * window.innerWidth * 0.8;
+      const y = Math.random() * window.innerHeight * 0.6;
+      noBtn.style.position = "absolute";
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    }
+
+    noBtn.addEventListener("mouseover", moveNoBtn);
+    noBtn.addEventListener("touchstart", moveNoBtn);
+    noBtn.addEventListener("click", moveNoBtn);      // Mobile chạm nhanh
+
+    yesBtn.addEventListener("click", () => {
+      popupOverlay.style.display = "flex";
+    });
+
+    confirmBtn.addEventListener("click", () => {
+      popupOverlay.style.display = "none";
+      message.style.display = "block";
+      audio.play();
+
+      setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("heart-float");
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.innerText = "💖";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 4000);
+      }, 300);
+
+      startFireworks();
+    });
+
+    function startFireworks() {
+      const colors = ['#ff1493', '#ff69b4', '#ff4500', '#ff6347', '#ff00ff', '#ff69b4'];
+      const fireworksCount = 10;
+      setInterval(() => {
+        for (let i = 0; i < fireworksCount; i++) {
+          createFirework(colors[Math.floor(Math.random() * colors.length)]);
+        }
+      }, 1200);
+    }
+
+    function createFirework(color) {
+      const firework = document.createElement("div");
+      firework.style.position = "fixed";
+      firework.style.left = Math.random() * window.innerWidth + "px";
+      firework.style.top = Math.random() * window.innerHeight + "px";
+      firework.style.width = "10px";
+      firework.style.height = "10px";
+      firework.style.borderRadius = "50%";
+      firework.style.backgroundColor = color;
+      firework.style.pointerEvents = "none";
+      firework.style.opacity = "1";
+      firework.style.zIndex = 999;
+      firework.style.transition = "all 1s ease-out";
+      document.body.appendChild(firework);
+      setTimeout(() => {
+        firework.style.width = "50px";
+        firework.style.height = "50px";
+        firework.style.opacity = "0";
+      }, 50);
+      setTimeout(() => firework.remove(), 1050);
+    }
+  </script>
+  <script type="module" src="visit-counter.js"></script>
+</body>
+</html>

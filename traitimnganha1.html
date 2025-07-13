@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nhập Lời Yêu Thương</title>
+  <style>
+    body {
+      background: #000;
+      color: #fff;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+    input, select {
+      padding: 10px 20px;
+      font-size: 20px;
+      border-radius: 5px;
+      border: none;
+      margin-bottom: 20px;
+      width: 300px;
+      max-width: 90%;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 20px;
+      background: #ff66cc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>💖 Nhập tên người ấy 💖</h1>
+  <input type="text" id="loveText" placeholder="Ví dụ: Hoa Cute" />
+  <p id="note" style="margin: 10px 0; font-size: 16px; color: #ccc;">
+    (Chỉ có thể viết không dấu)
+  </p>
+
+  <!-- ✅ Thêm ô chọn nhạc -->
+  <p style="font-size: 18px; margin-bottom: 5px;">🎵 Chọn bài nhạc:</p>
+  <select id="loveSong">
+    <option value="mBatCocConTim.mp3">Bắt Cóc Con Tim</option>
+    <option value="mnoinaycoanh.mp3">Nơi Này Có Anh</option>
+    <option value="manhdongynha.mp3">Anh Đồng Ý Nha</option>
+    <option value="mvannho.mp3">Vẫn Nhớ</option>
+    <option value="mcunganh.mp3">Cùng Anh</option>
+    <option value="mkhinao.mp3">Khi Nào</option>
+    <option value="maihongnhan.mp3">Ải Hồng Nhan</option>
+    <option value="mbimattraitim.mp3">Bí Mật Trái Tim</option>
+    <option value="mhaylacuarienganh.mp3">Hãy Là Của Riêng Anh</option>
+  </select>
+
+  <br>
+  <button onclick="saveText()">Bắt đầu</button>
+
+  <script>
+    function saveText() {
+  const text = document.getElementById('loveText').value.trim();
+  const song = document.getElementById('loveSong').value;
+
+  const params = new URLSearchParams();
+  params.set('text', encodeURIComponent(text));
+  params.set('song', encodeURIComponent(song));
+
+  window.location.href = 'ketqua1.html?' + params.toString();
+}
+
+  </script>
+  <!-- ✅ File auth-check.js phải nằm ngoài style -->
+  <script type="module" src="auth-check.js"></script>
+  <script type="module" src="visit-counter.js"></script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gửi Em 💖</title>
+  <link rel="stylesheet" href="style2.css" />
+</head>
+<body>
+  <div class="content">
+    <h1>💘 Anh có bất ngờ cho em nè 💘</h1>
+
+    <!-- Nút -->
+    <button id="startButton">Bấm để xem bất ngờ</button>
+
+    <!-- Text thay thế -->
+    <p id="statusText" style="display:none; font-size: 20px; color: #d63384; font-weight: bold; margin-top: 10px;">Hiện rồi nè ^^</p>
+
+    <div id="boxContainer" style="display:none;"></div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const msg = decodeURIComponent(params.get('msg') || "Anh Nhớ Em 💖");
+    const song = decodeURIComponent(params.get('song') || "maihongnhan.mp3");
+
+    const audio = new Audio(song);
+    audio.loop = true;
+
+    const btn = document.getElementById("startButton");
+    const statusText = document.getElementById("statusText");
+
+    btn.addEventListener("click", () => {
+      btn.style.display = "none"; // Ẩn nút
+      statusText.style.display = "block"; // Hiện text
+
+      audio.play().catch(e => console.warn(e));
+      document.getElementById("boxContainer").style.display = "block";
+      startEffects();
+    });
+
+    function startEffects() {
+      function createHeart() {
+        const colors = ["#ff5c8d", "#ff4d4d", "#ffb347", "#7ec8e3", "#b19cd9"];
+        for (let i = 0; i < 3; i++) {
+          const heart = document.createElement("div");
+          heart.className = "heart";
+          heart.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+          heart.style.left = `${Math.random() * window.innerWidth}px`;
+          heart.style.top = `${Math.random() * window.innerHeight}px`;
+          document.body.appendChild(heart);
+          setTimeout(() => heart.remove(), 2000);
+        }
+      }
+
+      setInterval(createHeart, 50);
+
+      setInterval(() => {
+        const box = document.createElement("div");
+        box.className = "box";
+        box.innerHTML = `
+          <div class="box-header">Đầy Bộ Nhớ</div>
+          <div class="box-body">${msg}</div>
+        `;
+        const maxX = window.innerWidth - 240;
+        const maxY = window.innerHeight - 100;
+        const x = Math.random() * maxX;
+        const y = Math.random() * maxY;
+        box.style.left = `${x}px`;
+        box.style.top = `${y}px`;
+        document.getElementById("boxContainer").appendChild(box);
+        setTimeout(() => box.remove(), 6000);
+      }, 100);
+    }
+  </script>
+  <script type="module" src="visit-counter.js"></script>
+</body>
+</html>

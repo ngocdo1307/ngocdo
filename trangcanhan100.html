@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thông Tin Cá Nhân - Đô Store</title>
+  <style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: url('background100.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+    .container {
+  max-width: 500px;
+  margin: 60px auto;
+  padding: 30px;
+  background: rgba(0, 0, 0, 0.2); /* Màu tối hơn */
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+}
+#flowers {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: -1; /* hoặc thấp hơn mây nếu có */
+  pointer-events: none;
+}
+
+    img.avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid white;
+      margin-bottom: 20px;
+    }
+    h1 {
+      margin-bottom: 10px;
+    }
+    .info {
+      text-align: left;
+      padding: 0 20px;
+      font-size: 16px;
+    }
+    .info p {
+      margin: 12px 0;
+    }
+    .info a {
+      color: #00ffe7;
+      text-decoration: none;
+    }
+    .info a:hover {
+      text-decoration: underline;
+    }
+    footer {
+      margin-top: 30px;
+      font-size: 13px;
+      opacity: 0.7;
+    }
+.wave1 {
+  font-size: 48px;
+  font-weight: bold;
+  background: linear-gradient(
+    270deg,
+    #ff0000,
+    #ff8000,
+    #ffff00,
+    #80ff00,
+    #00ffff,
+    #0040ff,
+    #8000ff,
+    #ff00ff,
+    #ff0000
+  );
+  background-size: 800% 800%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: wave1 5s linear infinite;
+  text-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+@keyframes wave1 {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 52%; }
+  100% { background-position: 0% 50%; }
+}
+.wave2 {
+  font-size: 32px;
+  font-weight: bold;
+  background: linear-gradient(
+    270deg,
+    #00ffff,
+    #00ff99,
+    #66ff66,
+    #99ff00,
+    #ffff00,
+    #ff6600,
+    #ff00ff,
+    #00ffff
+  );
+  background-size: 1800% 1800%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: wave2 5s ease infinite;
+}
+@keyframes wave2 {
+  0% { background-position: 100% 50%; }
+  50% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+  </style>
+</head>
+<body>
+<canvas id="flowers"></canvas>
+
+  <div class="container">
+    <img class="avatar" src="avatar100.jpg" alt="Avatar">
+    <h1 class="wave1">Đô Store</h1>
+    <h2 class="wave2">Trần Ngọc Đô</h2>
+
+    <div class="info">
+      <p><strong>📞 SĐT:</strong> <a href="tel:0333222528">0333222528</a></p>
+      <p><strong>📧 Email:</strong> <a href="https://mail.google.com/mail/u/0/#inbox?compose=new" target="_blank">tranngocdo1307@gmail.com</a></p>
+      <p><strong>🌐 Facebook:</strong> <a href="https://facebook.com/ha.6666" target="_blank"> Trần Ngọc Đô</a></p>
+      <p><strong>💬 Zalo:</strong> <a href="https://zalo.me/0333222528" target="_blank">zalo.me/0333222528</a></p>
+      <p><strong>📍 Địa chỉ:</strong> <a href="https://g.co/kgs/aJSRJ4i" target="_blank"> Môn Trì - Vĩnh Thịnh - Vĩnh Tường - VP
+      </a>
+      </p>
+    </div>
+    
+    <footer>
+      &copy; 2025 Đô Store. All rights reserved.
+    </footer>
+  </div>
+<script>
+  const canvasFlowers = document.getElementById('flowers');
+  const ctxFlowers = canvasFlowers.getContext('2d');
+  let W = canvasFlowers.width = window.innerWidth;
+  let H = canvasFlowers.height = window.innerHeight;
+
+  window.addEventListener('resize', () => {
+    W = canvasFlowers.width = window.innerWidth;
+    H = canvasFlowers.height = window.innerHeight;
+  });
+
+  const flowerImg = new Image();
+  flowerImg.src = 'flower100.png'; // Đường dẫn hình hoa PNG
+
+  const petals = [];
+  const maxPetals = 30;
+
+  for (let i = 0; i < maxPetals; i++) {
+    petals.push({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      size: 20 + Math.random() * 20,
+      speedY: 1 + Math.random() * 2,
+      speedX: Math.random() * 1 - 0.5,
+      angle: Math.random() * Math.PI * 2,
+      spin: Math.random() * 0.02 - 0.01
+    });
+  }
+
+  function drawPetal(p) {
+    ctxFlowers.save();
+    ctxFlowers.translate(p.x, p.y);
+    ctxFlowers.rotate(p.angle);
+    ctxFlowers.drawImage(flowerImg, -p.size / 2, -p.size / 2, p.size, p.size);
+    ctxFlowers.restore();
+  }
+
+  function update() {
+    ctxFlowers.clearRect(0, 0, W, H);
+    for (let i = 0; i < maxPetals; i++) {
+      let p = petals[i];
+      p.y += p.speedY;
+      p.x += p.speedX;
+      p.angle += p.spin;
+
+      if (p.y > H) {
+        p.y = -20;
+        p.x = Math.random() * W;
+      }
+
+      drawPetal(p);
+    }
+    requestAnimationFrame(update);
+  }
+
+  flowerImg.onload = update;
+</script>
+<body>
+  <!-- nhạc nền -->
+
+  <audio id="bgMusic" loop>
+    <source src="nhacnen100.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const bgMusic = document.getElementById('bgMusic');
+
+    const startMusic = () => {
+      bgMusic.play();
+      document.removeEventListener('click', startMusic);
+      document.removeEventListener('touchstart', startMusic);
+    };
+
+    document.addEventListener('click', startMusic);
+    document.addEventListener('touchstart', startMusic);
+  </script>
+  <script type="module" src="visit-counter.js"></script>
+
+</body>
+</html>

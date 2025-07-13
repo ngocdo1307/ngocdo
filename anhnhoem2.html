@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bất Ngờ Cho Em</title>
+  <link rel="stylesheet" href="style2.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #ffe6f0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .input-container {
+      width: 90%;
+      max-width: 400px;
+      margin: 100px auto;
+      padding: 30px;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .input-container h1 {
+      color: #d63384;
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+    }
+
+    .input-container p {
+      margin: 10px 0 5px 0;
+      color: #d63384;
+      font-weight: bold;
+    }
+
+    .input-container input,
+    .input-container select {
+      width: 100%;
+      padding: 15px 20px;
+      margin: 10px 0 20px 0;
+      border: 2px solid #ff4081;
+      border-radius: 10px;
+      font-size: 18px;
+      outline: none;
+    }
+
+    .input-container button {
+      padding: 15px 30px;
+      background: #ff4081;
+      color: white;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .input-container button:hover {
+      background: #e91e63;
+    }
+  </style>
+</head>
+<body>
+  <div class="input-container">
+    <h1>Anh có bất ngờ cho em nè</h1>
+
+    <!-- Ô nhập -->
+    <input type="text" id="loveInput" placeholder="Anh Nhớ Em" />
+
+    <!-- Chọn nhạc -->
+    <p>🎵 Chọn bài nhạc:</p>
+    <select id="songSelect">
+      <option value="mBatCocConTim.mp3">Bắt Cóc Con Tim</option>
+      <option value="mnoinaycoanh.mp3">Nơi Này Có Anh</option>
+      <option value="manhdongynha.mp3">Anh Đồng Ý Nha</option>
+      <option value="mvannho.mp3">Vẫn Nhớ</option>
+      <option value="mcunganh.mp3">Cùng Anh</option>
+      <option value="mkhinao.mp3">Khi Nào</option>
+      <option value="maihongnhan.mp3">Ải Hồng Nhan</option>
+      <option value="mbimattraitim.mp3">Bí Mật Trái Tim</option>
+      <option value="muhaylacuarienganh.mp3">Hãy là của riêng anh</option>
+    </select>
+
+    <!-- Nút bấm -->
+    <button id="showButton">Bắt đầu</button>
+  </div>
+
+  <!-- ✅ Check login -->
+  <script type="module" src="auth-check.js"></script>
+
+  <!-- ✅ JS mở trang share -->
+  <script>
+    const button = document.getElementById("showButton");
+    button.addEventListener("click", () => {
+      const input = document.getElementById("loveInput").value.trim() || "Anh Nhớ Em 💖";
+      const song = document.getElementById("songSelect").value;
+
+      const params = new URLSearchParams();
+      params.set('msg', encodeURIComponent(input));
+      params.set('song', encodeURIComponent(song));
+
+      window.location.href = 'ketqua2.html?' + params.toString();
+    });
+  </script>
+  
+  <script type="module" src="visit-counter.js"></script>
+</body>
+</html>

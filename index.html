@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Đăng nhập</title>
+  <link rel="stylesheet" href="stylechinh.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Đăng nhập</h2>
+    <input type="email" id="login-email" placeholder="Email">
+    <input type="password" id="login-pass" placeholder="Mật khẩu">
+    <button id="btn-login">Đăng nhập</button>
+
+    <p>
+      Đăng ký tài khoản mới liên hệ 
+      <a href="trangcanhan100.html" target="_blank">Admin</a>
+    </p>
+
+    <!-- ✅ Bộ đếm truy cập -->
+    <div style="margin-top: 20px; font-size: 14px; color: #ff3399;">
+      Số lượt truy cập: <span id="visitCount" style="color: #ffcc00;">Đang tải...</span>
+    </div>
+
+  </div>
+
+  <!-- 💡 Đặt script ở cuối -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import {
+      getAuth,
+      signInWithEmailAndPassword
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import {
+      getDatabase,
+      ref,
+      get,
+      runTransaction
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+    // ✅ Firebase config của bạn
+    const firebaseConfig = {
+      apiKey: "AIzaSyAGibQhw21VUcPINMMKWV-rosFiyr3rRAs",
+      authDomain: "ngocdo1.firebaseapp.com",
+      databaseURL: "https://ngocdo1-default-rtdb.firebaseio.com",
+      projectId: "ngocdo1",
+      storageBucket: "ngocdo1.appspot.com",
+      messagingSenderId: "598746900527",
+      appId: "1:598746900527:web:8231c7acd0ad49ccd7beda"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+
+    // ✅ Đăng nhập
+    document.getElementById("btn-login").addEventListener("click", () => {
+      const email = document.getElementById("login-email").value;
+      const pass = document.getElementById("login-pass").value;
+
+      signInWithEmailAndPassword(auth, email, pass)
+        .then(() => {
+          alert("✅ Đăng nhập thành công!");
+          window.location.href = "dashboard.html";
+        })
+        .catch(err => alert("❌ Lỗi đăng nhập: " + err.message));
+    });
+
+    // ✅ Bộ đếm truy cập
+    const counterRef = ref(db, "visitCount");
+
+    runTransaction(counterRef, current => {
+      return (current || 0) + 1;
+    });
+
+    get(counterRef).then(snapshot => {
+      if (snapshot.exists()) {
+        document.getElementById("visitCount").innerText = snapshot.val();
+      } else {
+        document.getElementById("visitCount").innerText = "0";
+      }
+    }).catch(err => {
+      console.error(err);
+      document.getElementById("visitCount").innerText = "Lỗi";
+    });
+
+  </script>
+</body>
+</html>
