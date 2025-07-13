@@ -11,10 +11,11 @@ body {
 
 .container {
   background-color: rgba(0, 0, 0, 0.4);
-  padding: 30px;
+  padding: 40px;
   border-radius: 10px;
   width: 100%;         /* chiếm 100% bề ngang cha */
   max-width: 400px;    /* nhưng tối đa 400px */
+  min-height: 800px;  /* tối thiểu 400px chiều cao */
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
   text-align: center;
   font-size: 28px;
