@@ -26,61 +26,65 @@
 
   <!-- 💡 Đặt script ở cuối -->
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-import {
-  getDatabase,
-  ref,
-  get,
-  set
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+  import {
+    getDatabase,
+    ref,
+    get,
+    set,
+    runTransaction
+  } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
+  import {
+    getAuth,
+    signInWithEmailAndPassword
+  } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
 
-    // ✅ Firebase config của bạn
-const firebaseConfig = {
-  apiKey: "AIzaSyCEjYts4d4zjsnGpFIGvAm-G5lmXMkCfsk",
-  authDomain: "bodemtruycap.firebaseapp.com",
-  databaseURL: "https://bodemtruycap-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "bodemtruycap",
-  storageBucket: "bodemtruycap.firebasestorage.app",
-  messagingSenderId: "988148784519",
-  appId: "1:988148784519:web:8036c73f8c24122b9cc722",
-  measurementId: "G-D1ZWL1PPKY"
-};
+  // ✅ Firebase config của bạn
+  const firebaseConfig = {
+    apiKey: "AIzaSyCEjYts4d4zjsnGpFIGvAm-G5lmXMkCfsk",
+    authDomain: "bodemtruycap.firebaseapp.com",
+    databaseURL: "https://bodemtruycap-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "bodemtruycap",
+    storageBucket: "bodemtruycap.appspot.com",
+    messagingSenderId: "988148784519",
+    appId: "1:988148784519:web:8036c73f8c24122b9cc722"
+  };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getDatabase(app);
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getDatabase(app);
 
-    // ✅ Đăng nhập
-    document.getElementById("btn-login").addEventListener("click", () => {
-      const email = document.getElementById("login-email").value;
-      const pass = document.getElementById("login-pass").value;
+  // ✅ Đăng nhập
+  document.getElementById("btn-login").addEventListener("click", () => {
+    const email = document.getElementById("login-email").value;
+    const pass = document.getElementById("login-pass").value;
 
-      signInWithEmailAndPassword(auth, email, pass)
-        .then(() => {
-          alert("✅ Đăng nhập thành công!");
-          window.location.href = "dashboard.html";
-        })
-        .catch(err => alert("❌ Lỗi đăng nhập: " + err.message));
-    });
+    signInWithEmailAndPassword(auth, email, pass)
+      .then(() => {
+        alert("✅ Đăng nhập thành công!");
+        window.location.href = "dashboard.html";
+      })
+      .catch(err => alert("❌ Lỗi đăng nhập: " + err.message));
+  });
 
-    // ✅ Bộ đếm truy cập
-    const counterRef = ref(db, "visitCount");
+  // ✅ Bộ đếm truy cập
+  const counterRef = ref(db, "visitCount");
 
-    runTransaction(counterRef, current => {
-      return (current || 0) + 1;
-    });
+  runTransaction(counterRef, current => {
+    return (current || 0) + 1;
+  });
 
-    get(counterRef).then(snapshot => {
-      if (snapshot.exists()) {
-        document.getElementById("visitCount").innerText = snapshot.val();
-      } else {
-        document.getElementById("visitCount").innerText = "0";
-      }
-    }).catch(err => {
-      console.error(err);
-      document.getElementById("visitCount").innerText = "Lỗi";
-    });
+  get(counterRef).then(snapshot => {
+    if (snapshot.exists()) {
+      document.getElementById("visitCount").innerText = snapshot.val();
+    } else {
+      document.getElementById("visitCount").innerText = "0";
+    }
+  }).catch(err => {
+    console.error(err);
+    document.getElementById("visitCount").innerText = "Lỗi";
+  });
+</script>
 
-  </script>
 </body>
 </html>
