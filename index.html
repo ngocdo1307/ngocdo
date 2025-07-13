@@ -30,8 +30,6 @@
   import {
     getDatabase,
     ref,
-    get,
-    set,
     runTransaction
   } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
   import {
@@ -39,8 +37,20 @@
     signInWithEmailAndPassword
   } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
 
-  // ✅ Firebase config của bạn
+  // 🔑 Project A: dùng cho Đăng nhập
   const firebaseConfig = {
+  apiKey: "AIzaSyAGibQhw21VUcPINMMKWV-rosFiyr3rRAs",
+  authDomain: "ngocdo1.firebaseapp.com",
+  projectId: "ngocdo1",
+  storageBucket: "ngocdo1.firebasestorage.app",
+  messagingSenderId: "598746900527",
+  appId: "1:598746900527:web:8231c7acd0ad49ccd7beda"
+};
+  const appAuth = initializeApp(authConfig, "authApp");
+  const auth = getAuth(appAuth);
+
+  // 🔑 Project B: dùng cho Bộ đếm
+  const counterConfig = {
     apiKey: "AIzaSyCEjYts4d4zjsnGpFIGvAm-G5lmXMkCfsk",
     authDomain: "bodemtruycap.firebaseapp.com",
     databaseURL: "https://bodemtruycap-default-rtdb.asia-southeast1.firebasedatabase.app",
@@ -49,10 +59,8 @@
     messagingSenderId: "988148784519",
     appId: "1:988148784519:web:8036c73f8c24122b9cc722"
   };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getDatabase(app);
+  const appCounter = initializeApp(counterConfig, "counterApp");
+  const db = getDatabase(appCounter);
 
   // ✅ Đăng nhập
   document.getElementById("btn-login").addEventListener("click", () => {
@@ -67,23 +75,21 @@
       .catch(err => alert("❌ Lỗi đăng nhập: " + err.message));
   });
 
-  // ✅ Bộ đếm truy cập
+  // ✅ Bộ đếm
   const counterRef = ref(db, "visitCount");
-
-  runTransaction(counterRef, current => {
-  return (current || 0) + 1;
-})
-.then(result => {
-  if (result.committed) {
-    document.getElementById("visitCount").innerText = result.snapshot.val();
-  } else {
-    document.getElementById("visitCount").innerText = "Lỗi cập nhật";
-  }
-})
-.catch(err => {
-  console.error(err);
-  document.getElementById("visitCount").innerText = "Lỗi";
-});
+  runTransaction(counterRef, current => (current || 0) + 1)
+    .then(result => {
+      if (result.committed) {
+        document.getElementById("visitCount").innerText = result.snapshot.val();
+      } else {
+        document.getElementById("visitCount").innerText = "Lỗi cập nhật";
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      document.getElementById("visitCount").innerText = "Lỗi";
+    });
+</script>
 
 </script>
 
