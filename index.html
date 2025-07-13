@@ -21,75 +21,75 @@
     <div style="margin-top: 20px; font-size: 14px; color: #ff3399;">
       Số lượt truy cập: <span id="visitCount" style="color: #ffcc00;">Đang tải...</span>
     </div>
-
   </div>
 
-  <!-- 💡 Đặt script ở cuối -->
+  <!-- 💡 Script đặt cuối -->
   <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-  import {
-    getDatabase,
-    ref,
-    runTransaction
-  } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
-  import {
-    getAuth,
-    signInWithEmailAndPassword
-  } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+    import {
+      getAuth,
+      signInWithEmailAndPassword
+    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+    import {
+      getDatabase,
+      ref,
+      runTransaction
+    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
 
-  // 🔑 Project A: dùng cho Đăng nhập
-  const firebaseConfig = {
-  apiKey: "AIzaSyAGibQhw21VUcPINMMKWV-rosFiyr3rRAs",
-  authDomain: "ngocdo1.firebaseapp.com",
-  projectId: "ngocdo1",
-  storageBucket: "ngocdo1.firebasestorage.app",
-  messagingSenderId: "598746900527",
-  appId: "1:598746900527:web:8231c7acd0ad49ccd7beda"
-};
-  const appAuth = initializeApp(authConfig, "authApp");
-  const auth = getAuth(appAuth);
+    // ✅ Project A: Đăng nhập (ngocdo1)
+    const firebaseConfigAuth = {
+      apiKey: "AIzaSyAGibQhw21VUcPINMMKWV-rosFiyr3rRAs",
+      authDomain: "ngocdo1.firebaseapp.com",
+      projectId: "ngocdo1",
+      storageBucket: "ngocdo1.firebasestorage.app",
+      messagingSenderId: "598746900527",
+      appId: "1:598746900527:web:8231c7acd0ad49ccd7beda"
+    };
+    const appAuth = initializeApp(firebaseConfigAuth, "authApp");
+    const auth = getAuth(appAuth);
 
-  // 🔑 Project B: dùng cho Bộ đếm
-  const counterConfig = {
-    apiKey: "AIzaSyCEjYts4d4zjsnGpFIGvAm-G5lmXMkCfsk",
-    authDomain: "bodemtruycap.firebaseapp.com",
-    databaseURL: "https://bodemtruycap-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "bodemtruycap",
-    storageBucket: "bodemtruycap.appspot.com",
-    messagingSenderId: "988148784519",
-    appId: "1:988148784519:web:8036c73f8c24122b9cc722"
-  };
-  const appCounter = initializeApp(counterConfig, "counterApp");
-  const db = getDatabase(appCounter);
+    // ✅ Project B: Bộ đếm (bodemtruycap)
+    const firebaseConfigCounter = {
+      apiKey: "AIzaSyCEjYts4d4zjsnGpFIGvAm-G5lmXMkCfsk",
+      authDomain: "bodemtruycap.firebaseapp.com",
+      databaseURL: "https://bodemtruycap-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "bodemtruycap",
+      storageBucket: "bodemtruycap.appspot.com",
+      messagingSenderId: "988148784519",
+      appId: "1:988148784519:web:8036c73f8c24122b9cc722"
+    };
+    const appCounter = initializeApp(firebaseConfigCounter, "counterApp");
+    const db = getDatabase(appCounter);
 
-  // ✅ Đăng nhập
-  document.getElementById("btn-login").addEventListener("click", () => {
-    const email = document.getElementById("login-email").value;
-    const pass = document.getElementById("login-pass").value;
+    // ✅ Xử lý Đăng nhập
+    document.getElementById("btn-login").addEventListener("click", () => {
+      const email = document.getElementById("login-email").value.trim();
+      const pass = document.getElementById("login-pass").value.trim();
 
-    signInWithEmailAndPassword(auth, email, pass)
-      .then(() => {
-        alert("✅ Đăng nhập thành công!");
-        window.location.href = "dashboard.html";
-      })
-      .catch(err => alert("❌ Lỗi đăng nhập: " + err.message));
-  });
-
-  // ✅ Bộ đếm
-  const counterRef = ref(db, "visitCount");
-  runTransaction(counterRef, current => (current || 0) + 1)
-    .then(result => {
-      if (result.committed) {
-        document.getElementById("visitCount").innerText = result.snapshot.val();
-      } else {
-        document.getElementById("visitCount").innerText = "Lỗi cập nhật";
-      }
-    })
-    .catch(err => {
-      console.error(err);
-      document.getElementById("visitCount").innerText = "Lỗi";
+      signInWithEmailAndPassword(auth, email, pass)
+        .then(() => {
+          alert("✅ Đăng nhập thành công!");
+          window.location.href = "dashboard.html";
+        })
+        .catch(err => {
+          alert("❌ Lỗi đăng nhập: " + err.message);
+        });
     });
-</script>
 
+    // ✅ Xử lý Bộ đếm
+    const counterRef = ref(db, "visitCount");
+    runTransaction(counterRef, current => (current || 0) + 1)
+      .then(result => {
+        if (result.committed) {
+          document.getElementById("visitCount").innerText = result.snapshot.val();
+        } else {
+          document.getElementById("visitCount").innerText = "Lỗi cập nhật";
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        document.getElementById("visitCount").innerText = "Lỗi";
+      });
+  </script>
 </body>
 </html>
