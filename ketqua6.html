@@ -46,7 +46,7 @@ customImages.forEach(src => { const img = new Image(); img.src = src; images.pus
 
 const particles = [];
 const sparkles = [];
-const MAX_PARTICLES = 200;
+const MAX_PARTICLES = 50;
 
 function spawnParticle() {
   if (particles.length >= MAX_PARTICLES) return;
@@ -57,7 +57,7 @@ function spawnParticle() {
       value: texts[Math.floor(Math.random()*texts.length)],
       x: Math.random()*canvas.width,
       y: -50,
-      speed: 1 + Math.random()*2,
+      speed: 2 + Math.random()*2,
       size: 20 + Math.random()*10,
       hue: Math.random()*360
     });
@@ -67,7 +67,7 @@ function spawnParticle() {
       value: icons[Math.floor(Math.random()*icons.length)],
       x: Math.random()*canvas.width,
       y: -50,
-      speed: 1 + Math.random()*2,
+      speed: 2 + Math.random()*2,
       size: 24 + Math.random()*10
     });
   } else if (images.length) {
@@ -76,7 +76,7 @@ function spawnParticle() {
       value: images[Math.floor(Math.random()*images.length)],
       x: Math.random()*canvas.width,
       y: -50,
-      speed: 1 + Math.random()*2,
+      speed: 2 + Math.random()*2,
       size: 40 + Math.random()*20
     });
   }
@@ -86,7 +86,7 @@ function spawnSparkle() {
   sparkles.push({
     x: Math.random()*canvas.width,
     y: Math.random()*canvas.height,
-    size: 1 + Math.random()*2,
+    size: 2 + Math.random()*2,
     alpha: Math.random(),
     life: 200 + Math.random()*200
   });
