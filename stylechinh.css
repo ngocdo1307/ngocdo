@@ -72,3 +72,34 @@ a.admin-link:visited {
     margin-bottom: 10px;
   }
 }
+/* ✅ Chia 2 cột cho dashboard.html */
+body.dashboard .grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+}
+
+body.dashboard .grid button {
+  font-size: 16px;
+  height: 60px;
+  padding: 10px;
+  word-break: break-word;
+}
+
+/* Responsive dashboard trên mobile */
+@media (max-width: 768px) {
+  body.dashboard .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  body.dashboard .grid button {
+    font-size: 18px;
+    height: 55px;
+  }
+
+  body.dashboard h2 {
+    font-size: 24px;
+  }
+}
