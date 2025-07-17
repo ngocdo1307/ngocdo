@@ -116,4 +116,23 @@ body.dashboard #logout {
 body.dashboard #logout:hover {
   background: #e60000;
 }
+@media (max-width: 768px) {
+  body.dashboard .grid {
+    grid-template-columns: 1fr; /* Chia 1 cột cho điện thoại */
+  }
+
+  body.dashboard .grid button {
+    font-size: 28px;           /* Chữ to hơn */
+    height: 80px;              /* Nút cao hơn */
+    padding: 20px 10px;
+  }
+
+  body.dashboard h2 {
+    font-size: 26px;           /* Tiêu đề to hơn */
+  }
+
+  body.dashboard #visitCount {
+    font-size: 18px;
+  }
+}
 
