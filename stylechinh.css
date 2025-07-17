@@ -62,7 +62,7 @@ a.admin-link {
 a.admin-link:visited {
   color: #00ff00 !important;
 }
-/* ✅ Chỉ áp dụng cho body có class 'dashboard' */
+/* Chỉ áp dụng cho dashboard */
 body.dashboard {
   flex-direction: column;
   justify-content: flex-start;
@@ -72,31 +72,48 @@ body.dashboard {
 }
 
 body.dashboard .container {
+  width: 100%;
   max-width: 100%;
-  padding: 20px;
-  background-color: rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
   box-shadow: none;
   border-radius: 0;
-  height: auto;
-  max-height: none;
 }
 
 body.dashboard .grid {
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 cột đều nhau */
+  gap: 15px;
+  margin-top: 20px;
 }
 
-body.dashboard button {
-  font-size: 16px;
-  padding: 14px 10px;
+body.dashboard .grid button {
+  font-size: 20px;
+  padding: 20px 10px;
+  width: 100%;
+  height: 100px;
+  background-color: #38b2ac;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-/* Nút logout riêng */
+body.dashboard .grid button:hover {
+  background-color: #319795;
+}
+
 body.dashboard #logout {
   background: #ff4d4d;
-  margin-top: 25px;
+  font-size: 18px;
+  padding: 15px;
+  margin-top: 30px;
+  width: 100%;
+  border-radius: 8px;
 }
 
 body.dashboard #logout:hover {
   background: #e60000;
 }
+
