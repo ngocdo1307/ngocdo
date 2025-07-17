@@ -2,47 +2,88 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nhập Lời Yêu Thương</title>
   <style>
     body {
       background: #000;
       color: #fff;
-      font-family: sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      padding: 20px;
       text-align: center;
     }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
     input, select {
-      padding: 10px 20px;
-      font-size: 20px;
-      border-radius: 5px;
+      padding: 14px 20px;
+      font-size: 18px;
+      border-radius: 8px;
       border: none;
       margin-bottom: 20px;
-      width: 300px;
-      max-width: 90%;
+      width: 100%;
+      max-width: 400px;
+      box-sizing: border-box;
     }
+
+    select {
+      background-color: #222;
+      color: #fff;
+    }
+
     button {
-      padding: 10px 20px;
+      padding: 14px 20px;
       font-size: 20px;
       background: #ff66cc;
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
       cursor: pointer;
+      width: 100%;
+      max-width: 400px;
+      box-sizing: border-box;
+    }
+
+    button:hover {
+      background-color: #ff3388;
+    }
+
+    #note {
+      font-size: 15px;
+      color: #ccc;
+      margin-top: -10px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 24px;
+      }
+
+      input, select, button {
+        font-size: 17px;
+        padding: 12px;
+      }
+
+      #note {
+        font-size: 14px;
+      }
     }
   </style>
 </head>
 <body>
   <h1>💖 Nhập tên người ấy 💖</h1>
   <input type="text" id="loveText" placeholder="Ví dụ: Hoa Cute" />
-  <p id="note" style="margin: 10px 0; font-size: 16px; color: #ccc;">
-    (Chỉ có thể viết không dấu)
-  </p>
+  <p id="note">(Chỉ có thể viết không dấu)</p>
 
-  <!-- ✅ Thêm ô chọn nhạc -->
   <p style="font-size: 18px; margin-bottom: 5px;">🎵 Chọn bài nhạc:</p>
   <select id="loveSong">
     <option value="mBatCocConTim.mp3">Bắt Cóc Con Tim</option>
@@ -56,23 +97,22 @@
     <option value="mhaylacuarienganh.mp3">Hãy Là Của Riêng Anh</option>
   </select>
 
-  <br>
   <button onclick="saveText()">Bắt đầu</button>
 
   <script>
     function saveText() {
-  const text = document.getElementById('loveText').value.trim();
-  const song = document.getElementById('loveSong').value;
+      const text = document.getElementById('loveText').value.trim();
+      const song = document.getElementById('loveSong').value;
 
-  const params = new URLSearchParams();
-  params.set('text', encodeURIComponent(text));
-  params.set('song', encodeURIComponent(song));
+      const params = new URLSearchParams();
+      params.set('text', encodeURIComponent(text));
+      params.set('song', encodeURIComponent(song));
 
-  window.location.href = 'ketqua1.html?' + params.toString();
-}
-
+      window.location.href = 'ketqua1.html?' + params.toString();
+    }
   </script>
-  <!-- ✅ File auth-check.js phải nằm ngoài style -->
+
+  <!-- Script kiểm tra đăng nhập và bộ đếm truy cập -->
   <script type="module" src="auth-check.js"></script>
   <script type="module" src="visit-counter.js"></script>
 </body>
