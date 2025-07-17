@@ -3,44 +3,62 @@
 <head>
   <meta charset="UTF-8" />
   <title>Nhập dữ liệu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
     body {
       font-family: 'Poppins', sans-serif;
       background: #f0f4f8;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      margin: 0;
+      min-height: 100dvh;
     }
+
     .container {
       background: white;
-      padding: 40px;
-      border-radius: 10px;
+      padding: 40px 25px;
+      border-radius: 12px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.1);
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
       text-align: center;
     }
+
     h1 {
       margin-bottom: 20px;
       color: #333;
+      font-size: 22px;
     }
+
     label {
       display: block;
       margin: 15px 0 5px;
       text-align: left;
       font-weight: 600;
       color: #555;
+      font-size: 14px;
     }
+
     textarea, select, input[type="file"] {
       width: 100%;
       padding: 10px;
       font-size: 15px;
       border: 1px solid #ccc;
-      border-radius: 5px;
+      border-radius: 6px;
       resize: vertical;
+      font-family: inherit;
     }
+
     button {
       margin-top: 25px;
       padding: 12px 25px;
@@ -48,16 +66,37 @@
       background: #007bff;
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
       cursor: pointer;
+      transition: background 0.3s;
+      touch-action: manipulation;
     }
+
     button:hover {
       background: #0056b3;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 30px 15px;
+      }
+
+      h1 {
+        font-size: 20px;
+      }
+
+      textarea {
+        font-size: 14px;
+      }
+
+      button {
+        font-size: 15px;
+        padding: 10px 20px;
+      }
     }
   </style>
 </head>
 <body>
-
   <div class="container">
     <h1>Nhập thông tin</h1>
 
@@ -89,7 +128,6 @@
       const music = encodeURIComponent(document.getElementById("musicSelect").value);
       const imgFiles = document.getElementById("imgInput").files;
 
-      // Lưu nhiều ảnh
       if (imgFiles.length > 0) {
         const readers = [];
         const imageDataList = [];
@@ -98,7 +136,6 @@
           readers[i].onload = function(e) {
             imageDataList.push(e.target.result);
             if (imageDataList.length === imgFiles.length) {
-              // Lưu tất cả
               localStorage.setItem("selectedImages", JSON.stringify(imageDataList));
               window.location.href = `ketqua6.html?text=${text}&music=${music}`;
             }
@@ -111,7 +148,7 @@
       }
     }
   </script>
-  <!-- ✅ File auth-check.js phải nằm ngoài style -->
+
   <script type="module" src="auth-check.js"></script>
   <script type="module" src="visit-counter.js"></script>
 </body>
