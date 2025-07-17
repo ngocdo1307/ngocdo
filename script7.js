@@ -23,7 +23,7 @@ function resizeCanvas() {
   bearY = canvas.height - 80;
 
   stars.length = 0;
-  for (let i = 0; i < 300; i++) {
+  for (let i = 0; i < 150; i++) {
     stars.push({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
@@ -348,6 +348,6 @@ document.addEventListener("touchstart", playMusicOnce);
 // ==============================
 resizeCanvas();
 checkOrientation();
-setInterval(shootDot, 30);
-setInterval(createShootingStar, 1500);
+setInterval(shootDot, 60);
+setInterval(createShootingStar, 3000);
 animate();
