@@ -5,9 +5,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;        /* SỬA LẠI: full chiều cao màn hình */
-  overflow: hidden;     /* Chặn trượt nếu nội dung nhỏ */
+  height: 100vh;
+  overflow: hidden;
   margin: 0;
+  padding: 0;
 }
 
 .container {
@@ -15,44 +16,64 @@ body {
   padding: 30px 20px;
   border-radius: 10px;
   width: 100%;
-  max-width: 400px;     /* co giãn đẹp hơn trên mọi màn hình */
+  max-width: 480px;        /* Tăng tối đa chiều rộng cho mobile */
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
   text-align: center;
-  max-height: 90vh;     /* chặn tràn màn hình */
-  overflow-y: auto;     /* nếu quá dài thì cuộn trong khung */
+  max-height: 95vh;
+  overflow-y: auto;
 }
 
-h1 {
-  margin-bottom: 30px;
+h2 {
   font-size: 24px;
-  font-weight: 600;
+  margin-bottom: 10px;
 }
 
-input {
-  width: 100%;
-  padding: 12px 15px;
-  margin-top: 15px;
-  border: none;
-  border-radius: 8px;
+p {
   font-size: 16px;
 }
 
-button {
-  width: 100%;
-  padding: 12px;
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
   margin-top: 20px;
-  background: linear-gradient(90deg, #38b2ac, #319795);
-  border: none;
-  border-radius: 8px;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.3s ease;
 }
 
-button:hover {
-  background: linear-gradient(90deg, #319795, #38b2ac);
+.grid a button {
+  font-size: 16px;
+  padding: 15px 10px;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  background-color: #38b2ac;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.grid a button:hover {
+  background-color: #319795;
+}
+
+button#logout {
+  margin-top: 20px;
+  padding: 14px 25px;
+  font-size: 16px;
+  background-color: #e53e3e;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  width: 100%;
+}
+
+button#logout:hover {
+  background-color: #c53030;
+}
+
+#visitCount {
+  font-weight: bold;
+  font-size: 16px;
 }
 
 a.admin-link {
@@ -61,15 +82,4 @@ a.admin-link {
 
 a.admin-link:visited {
   color: #00ff00 !important;
-}
-
-.hidden {
-  display: none;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-  margin-top: 20px;
 }
