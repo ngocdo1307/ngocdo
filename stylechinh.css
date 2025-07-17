@@ -1,44 +1,43 @@
-body {
-  font-family: Arial, sans-serif;
-  background: linear-gradient(to right, #667eea, #764ba2);
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  overflow: hidden;
+/* Reset cơ bản */
+* {
   margin: 0;
-}
-
-.container {
-  width: 100%;
-  max-width: 400px;
-  margin: auto;
-  padding: 30px 20px;
-  border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.4);
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-  text-align: center;
+  padding: 0;
   box-sizing: border-box;
 }
 
-
-
-input {
+html, body {
   width: 100%;
-  padding: 10px;
-  margin-top: 10px;
+  height: 100%;
+  overflow-x: hidden; /* Ngăn trượt ngang */
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #667eea, #764ba2);
+  color: #fff;
+}
+
+/* Container khung đăng nhập */
+.container {
+  width: 100%;
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 30px 20px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  text-align: center;
+}
+
+/* Ô nhập và nút */
+input, button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
+  font-size: 16px;
 }
 
 button {
-  width: 100%;
-  padding: 10px;
-  margin-top: 15px;
   background-color: #38b2ac;
-  border: none;
-  border-radius: 5px;
   color: white;
   font-weight: bold;
   cursor: pointer;
@@ -48,90 +47,28 @@ button:hover {
   background-color: #319795;
 }
 
-.hidden {
-  display: none;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-  margin-top: 20px;
-}
-
 a.admin-link {
-  color: #00ff00 !important;
+  color: #00ff00;
 }
 
 a.admin-link:visited {
-  color: #00ff00 !important;
+  color: #00ff00;
 }
 
-
-  @media (max-width: 768px) {
-  html, body {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
+/* Tối ưu riêng cho màn hình nhỏ */
+@media (max-width: 480px) {
   .container {
-    padding: 20px 10px;
-    box-sizing: border-box;
+    width: 90%;
+    padding: 20px 15px;
+    border-radius: 8px;
   }
 
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-
-  .grid button {
-    font-size: 16px;
-    word-wrap: break-word;
-  }
-}
-
-
-  body.dashboard {
-    height: auto;
-    align-items: flex-start;
-    padding: 10px;
-  }
-
-  .container {
-    max-width: 100%;
-    width: 100%;              /* ✅ Đảm bảo chiếm đủ màn */
-    height: auto;
-    max-height: none;
-    overflow-y: auto;
-    border-radius: 0;
-    box-shadow: none;
-    padding: 20px 10px;
-  }
-
-  .grid {
-    grid-template-columns: repeat(2, 1fr);  /* 2 cột đều nhau */
-    gap: 10px;
-  }
-
-  .grid button {
-    font-size: 16px;
-    height: 50px;
-    padding: 10px;
-    word-break: break-word;    /* ✅ Không cho chữ vượt nút */
+  input, button {
+    font-size: 15px;
   }
 
   h2 {
     font-size: 22px;
+    margin-bottom: 10px;
   }
-
-  #visitCount {
-    font-size: 16px;
-  }
-}
-
-html, body {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden; /* Chặn trượt ngang */
 }
