@@ -2,21 +2,84 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>Tạo link tỏ tình 💘</title>
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; background: #fff0f5; padding: 40px; }
-    input, select { width: 80%; max-width: 300px; padding: 10px; margin: 10px 0; border-radius: 6px; border: 1px solid #ccc; }
-    button { padding: 12px 25px; background: #ff66b2; border: none; color: white; border-radius: 8px; cursor: pointer; }
-    button:hover { background: #e60073; }
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #fff0f5;
+      padding: 40px 20px;
+      margin: 0;
+      text-align: center;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #cc0066;
+    }
+
+    input, select {
+      width: 100%;
+      max-width: 320px;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 12px 30px;
+      font-size: 16px;
+      background: #ff66b2;
+      border: none;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #e60073;
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 20px;
+      }
+
+      input, select {
+        font-size: 15px;
+        padding: 10px;
+      }
+
+      button {
+        font-size: 15px;
+        padding: 10px 24px;
+      }
+    }
   </style>
-  <!-- ✅ File auth-check.js phải nằm ngoài style -->
+  <!-- ✅ Script phải nằm ngoài style -->
   <script type="module" src="auth-check.js"></script>
 </head>
 <body>
   <h1>Tạo lời tỏ tình 💖</h1>
+
   <input type="text" id="loveText" placeholder="Nhập câu hỏi tỏ tình" value="Em có đồng ý làm người yêu anh không?"><br>
+
   <input type="text" id="loveAnswer" placeholder="Nhập câu trả lời" value="Yêu em nhiều lắm luôn á ❤️❤️❤️"><br>
+
   <select id="loveSong">
     <option value="mBatCocConTim.mp3">Bắt Cóc Con Tim</option>
     <option value="mnoinaycoanh.mp3">Nơi Này Có Anh</option>
@@ -27,8 +90,8 @@
     <option value="maihongnhan.mp3">Ải Hồng Nhan</option>
     <option value="mbimattraitim.mp3">Bí Mật Trái Tim</option>
     <option value="mhaylacuarienganh.mp3">Hãy Là Của Riêng Anh</option>
-  </select>
-  <br>
+  </select><br>
+
   <button onclick="saveText()">Bắt đầu</button>
 
   <script>
@@ -45,6 +108,7 @@
       window.location.href = 'ketqua4.html?' + params.toString();
     }
   </script>
+
   <script type="module" src="visit-counter.js"></script>
 </body>
 </html>
