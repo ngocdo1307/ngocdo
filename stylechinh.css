@@ -14,13 +14,16 @@ body {
   background-color: rgba(0, 0, 0, 0.4);
   padding: 30px 20px;
   border-radius: 10px;
-  width: 100%;
+  width: 90%;               /* 👈 Giảm bớt để tránh sát mép */
   max-width: 400px;
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
   text-align: center;
   max-height: 90vh;
   overflow-y: auto;
+  box-sizing: border-box;   /* 👈 Quan trọng để tính đúng chiều rộng */
+  margin: auto;             /* 👈 Canh giữa */
 }
+
 
 input {
   width: 100%;
