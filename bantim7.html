@@ -84,10 +84,34 @@
         font-size: 22px;
       }
 
-      textarea, select {
-        font-size: 16px;
-        padding: 12px;
-      }
+      textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  resize: vertical;
+  outline: none;
+  box-sizing: border-box;
+  margin: 12px auto 0 auto;
+  text-align: left;
+  overflow-wrap: break-word;
+}
+
+textarea::placeholder {
+  font-size: 15px;
+  color: #999;
+  word-break: break-word;
+}
+
+select {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
 
       button {
         font-size: 17px;
