@@ -3,18 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <title>Kết quả</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <style>
     * {
       box-sizing: border-box;
     }
 
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: 'Comic Sans MS', cursive, sans-serif;
       text-align: center;
-      margin: 0;
       padding: 40px 20px;
       min-height: 100vh;
+      background: linear-gradient(135deg, #ffe6f0, #ffe0f7, #ffe6f0);
       background-size: cover;
       background-position: center;
       position: relative;
@@ -57,6 +62,7 @@
       border-radius: 8px;
       cursor: pointer;
       transition: transform 0.2s, font-size 0.2s;
+      touch-action: manipulation;
     }
 
     #yes {
@@ -72,19 +78,21 @@
     #yes:hover, #no:hover {
       transform: scale(1.05);
     }
+
     #message {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.75);
-  color: #fff;
-  padding: 15px 30px;
-  border-radius: 10px;
-  font-size: 20px;
-  z-index: 999;
-  display: none;
-}
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.75);
+      color: #fff;
+      padding: 15px 30px;
+      border-radius: 10px;
+      font-size: 20px;
+      z-index: 999;
+      display: none;
+    }
+
     @media (max-width: 480px) {
       body {
         padding: 20px 10px;
@@ -121,67 +129,61 @@
   <audio id="music" src="" preload="auto"></audio>
 
   <script>
-  const params = new URLSearchParams(location.search);
-  const question = params.get('question');
-  const text1 = params.get('text1');
-  const text2 = params.get('text2');
-  const music = params.get('music');
-  const gif1 = params.get('gif1');
-  const gif2 = params.get('gif2');
+    const params = new URLSearchParams(location.search);
+    const question = params.get('question');
+    const text1 = params.get('text1');
+    const text2 = params.get('text2');
+    const music = params.get('music');
+    const gif1 = params.get('gif1');
+    const gif2 = params.get('gif2');
 
-  document.getElementById('question').textContent = question || 'Bạn đồng ý chứ?';
-  document.getElementById('text').textContent = text1 || 'Tớ thích cậu lắm luôn á 😳';
-  document.getElementById('gif').src = gif1 || 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif';
-  document.getElementById('music').src = music || '';
-  document.body.style.background = 'linear-gradient(135deg, #ffe6f0, #ffe0f7, #ffe6f0)';
+    document.getElementById('question').textContent = question || 'Bạn đồng ý chứ?';
+    document.getElementById('text').textContent = text1 || 'Tớ thích cậu lắm luôn á 😳';
+    document.getElementById('gif').src = gif1 || 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif';
+    document.getElementById('music').src = music || '';
 
+    const yesBtn = document.getElementById('yes');
+    const noBtn = document.getElementById('no');
+    const message = document.getElementById('message');
+    let yesSize = 20;
+    let clickCount = 0;
 
+    noBtn.onclick = () => {
+      clickCount++;
 
-  const yesBtn = document.getElementById('yes');
-  const noBtn = document.getElementById('no');
-  const message = document.getElementById('message');
-  let yesSize = 20;
-  let clickCount = 0;
+      if (clickCount <= 5) {
+        yesSize += 20;
+        yesBtn.style.fontSize = yesSize + 'px';
+      } else if (clickCount <= 8) {
+        const maxX = window.innerWidth - noBtn.offsetWidth;
+        const maxY = window.innerHeight - noBtn.offsetHeight;
+        const randX = Math.random() * maxX;
+        const randY = Math.random() * maxY;
 
-  noBtn.onclick = () => {
-    clickCount++;
+        noBtn.style.position = "absolute";
+        noBtn.style.left = `${randX}px`;
+        noBtn.style.top = `${randY}px`;
+      } else {
+        message.style.display = 'block';
+        setTimeout(() => {
+          message.style.display = 'none';
+        }, 2000);
+      }
 
-    if (clickCount <= 5) {
-      yesSize += 20;
-      yesBtn.style.fontSize = yesSize + 'px';
-    } else if (clickCount <= 8) {
-      const maxX = window.innerWidth - noBtn.offsetWidth;
-      const maxY = window.innerHeight - noBtn.offsetHeight;
-      const randX = Math.random() * maxX;
-      const randY = Math.random() * maxY;
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+      });
+    };
 
-      noBtn.style.position = "absolute";
-      noBtn.style.left = `${randX}px`;
-      noBtn.style.top = `${randY}px`;
-    } else {
-      // Hiện dòng chữ giữa màn hình 2s rồi biến mất
-      message.style.display = 'block';
-      setTimeout(() => {
-        message.style.display = 'none';
-      }, 2000);
-    }
-
-    window.scrollTo({
-      top: document.body.scrollHeight,
-      behavior: 'smooth'
-    });
-  };
-
-  yesBtn.onclick = () => {
-    document.getElementById('text').textContent = text2 || 'Yêu cậu nhìu nhìu 😍';
-    document.getElementById('gif').src = gif2 || 'https://media.giphy.com/media/l0Exk8EUzSLsrErEQ/giphy.gif';
-    document.getElementById('music').play();
-    yesBtn.style.display = 'none';
-    noBtn.style.display = 'none';
-  };
-</script>
-
-
+    yesBtn.onclick = () => {
+      document.getElementById('text').textContent = text2 || 'Yêu cậu nhìu nhìu 😍';
+      document.getElementById('gif').src = gif2 || 'https://media.giphy.com/media/l0Exk8EUzSLsrErEQ/giphy.gif';
+      document.getElementById('music').play();
+      yesBtn.style.display = 'none';
+      noBtn.style.display = 'none';
+    };
+  </script>
 
   <script type="module" src="visit-counter.js"></script>
 </body>
