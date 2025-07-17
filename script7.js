@@ -4,9 +4,9 @@ const stars = [];
 const explosions = [];
 const shootingStars = [];
 const fullText = ["Chào Mừng Bạn đến với", "Kênh Tiktok Của Gió"];
-const fontSize = 60;
+const fontSize = 100;
 const fontFamily = "Arial";
-const lineHeight = 80;
+const lineHeight = 120;
 const bearX = 70;
 let bearY = canvas.height - 80;
 let dots = [];
@@ -14,13 +14,16 @@ let targetDotsQueue = [];
 let currentCharIndex = 0;
 let animationDone = false;
 
+// ==============================
+// Resize & init stars
+// ==============================
 function resizeCanvas() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
   bearY = canvas.height - 80;
 
   stars.length = 0;
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 300; i++) {
     stars.push({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
@@ -36,6 +39,9 @@ function resizeCanvas() {
   generateAllTargetDots();
 }
 
+// ==============================
+// Lấy dữ liệu URL (text + nhạc)
+// ==============================
 const params = new URLSearchParams(window.location.search);
 const customText = decodeURIComponent(params.get('text') || '');
 const customMusic = decodeURIComponent(params.get('music') || '');
@@ -48,11 +54,14 @@ if (customText) {
 if (customMusic) {
   const audio = document.getElementById("bgMusic");
   const source = document.getElementById("musicSource");
-  source.src = customMusic;
+  source.src = customMusic; // Đã có đường dẫn /music/ rồi
   audio.load();
-  audio.play().catch(() => {});
+  audio.play().catch(()=>{});
 }
 
+// ==============================
+// Kiểm tra xoay ngang/dọc
+// ==============================
 function checkOrientation() {
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   const isPortrait = window.innerHeight > window.innerWidth;
@@ -75,6 +84,9 @@ window.addEventListener('resize', () => {
 });
 window.addEventListener('load', checkOrientation);
 
+// ==============================
+// Hiệu ứng sao & bắn
+// ==============================
 function createExplosion(x, y) {
   const count = 20;
   for (let i = 0; i < count; i++) {
@@ -94,7 +106,9 @@ function createExplosion(x, y) {
 function drawStars() {
   for (let star of stars) {
     star.alpha += star.delta;
-    if (star.alpha >= 1 || star.alpha <= 0) star.delta = -star.delta;
+    if (star.alpha >= 1 || star.alpha <= 0) {
+      star.delta = -star.delta;
+    }
 
     ctx.save();
     ctx.globalAlpha = star.alpha;
@@ -107,14 +121,13 @@ function drawStars() {
 }
 
 function createShootingStar() {
-  if (shootingStars.length > 3) return;
   const startX = Math.random() * canvas.width;
   const startY = Math.random() * canvas.height / 2;
   shootingStars.push({
     x: startX,
     y: startY,
-    length: Math.random() * 200 + 80,
-    speed: Math.random() * 6 + 4,
+    length: Math.random() * 300 + 100,
+    speed: Math.random() * 10 + 6,
     angle: Math.PI / 4,
     opacity: 1
   });
@@ -141,10 +154,15 @@ function drawShootingStars() {
     s.y += Math.sin(s.angle) * s.speed;
     s.opacity -= 0.01;
 
-    if (s.opacity <= 0) shootingStars.splice(i, 1);
+    if (s.opacity <= 0) {
+      shootingStars.splice(i, 1);
+    }
   }
 }
 
+// ==============================
+// Chữ + Dots
+// ==============================
 function generateCharDots(char, x, y) {
   const tempCanvas = document.createElement('canvas');
   tempCanvas.width = canvas.width;
@@ -167,6 +185,7 @@ function generateCharDots(char, x, y) {
       }
     }
   }
+
   return charDots;
 }
 
@@ -187,6 +206,7 @@ function generateAllTargetDots() {
         targetDotsQueue.push([]);
         continue;
       }
+
       const charDots = generateCharDots(char, xCursor, y);
       targetDotsQueue.push(charDots);
       xCursor += tempCtx.measureText(char).width;
@@ -207,7 +227,7 @@ function shootDot() {
   const targetDots = targetDotsQueue[currentCharIndex];
   if (!targetDots || targetDots.length === 0) return;
 
-  const batch = 2;
+  const batch = 5;
   for (let i = 0; i < batch; i++) {
     const target = targetDots.shift();
     if (!target) return;
@@ -228,6 +248,9 @@ function shootDot() {
   }
 }
 
+// ==============================
+// Main Animate
+// ==============================
 function animate() {
   const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
   gradient.addColorStop(0, "#0a001f");
@@ -248,13 +271,11 @@ function animate() {
     dot.x += dot.vx;
     dot.y += dot.vy;
 
-    ctx.font = "14px Arial";
+    ctx.font = "16px Arial";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.fillText("❤️", dot.x, dot.y);
   });
-
-  if (dots.length > 800) dots.splice(0, dots.length - 800);
 
   for (let i = explosions.length - 1; i >= 0; i--) {
     const p = explosions[i];
@@ -272,10 +293,16 @@ function animate() {
     ctx.fill();
     ctx.globalAlpha = 1;
 
-    if (p.life <= 0 || p.opacity <= 0) explosions.splice(i, 1);
+    if (p.life <= 0 || p.opacity <= 0) {
+      explosions.splice(i, 1);
+    }
   }
 
-  if (!animationDone && currentCharIndex >= targetDotsQueue.length && dots.every(dot => Math.abs(dot.targetX - dot.x) < 2 && Math.abs(dot.targetY - dot.y) < 2)) {
+  if (
+    !animationDone &&
+    currentCharIndex >= targetDotsQueue.length &&
+    dots.every(dot => Math.abs(dot.targetX - dot.x) < 2 && Math.abs(dot.targetY - dot.y) < 2)
+  ) {
     animationDone = true;
     const bear = document.getElementById("bear");
     if (bear.src !== "https://i.pinimg.com/originals/cf/e2/66/cfe2664925719a18a078c8c1b7552b9d.gif") {
@@ -286,25 +313,41 @@ function animate() {
   requestAnimationFrame(animate);
 }
 
-canvas.addEventListener("click", (e) => createExplosion(e.clientX, e.clientY));
-canvas.addEventListener("touchstart", (e) => {
-  const touch = e.touches[0];
-  if (touch) createExplosion(touch.clientX, touch.clientY);
+// ==============================
+// Sự kiện click/touch
+// ==============================
+canvas.addEventListener("click", (e) => {
+  createExplosion(e.clientX, e.clientY);
 });
 
-document.addEventListener("click", playMusicOnce);
-document.addEventListener("touchstart", playMusicOnce);
+canvas.addEventListener("touchstart", (e) => {
+  const touch = e.touches[0];
+  if (touch) {
+    createExplosion(touch.clientX, touch.clientY);
+  }
+});
+
+// ==============================
+// Tự phát nhạc sau tương tác
+// ==============================
+const audio = document.getElementById("bgMusic");
 
 function playMusicOnce() {
-  if (audio.paused) audio.play().catch(() => {});
+  if (audio.paused) {
+    audio.play().catch(() => {});
+  }
   document.removeEventListener("click", playMusicOnce);
   document.removeEventListener("touchstart", playMusicOnce);
 }
 
-const audio = document.getElementById("bgMusic");
+document.addEventListener("click", playMusicOnce);
+document.addEventListener("touchstart", playMusicOnce);
 
+// ==============================
+// Khởi chạy lần đầu
+// ==============================
 resizeCanvas();
 checkOrientation();
-setInterval(shootDot, 70);
-setInterval(createShootingStar, 3000);
+setInterval(shootDot, 30);
+setInterval(createShootingStar, 1500);
 animate();
