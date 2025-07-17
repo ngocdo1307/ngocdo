@@ -65,37 +65,47 @@ a.admin-link:visited {
   color: #00ff00 !important;
 }
 
-/* ✅ Tối ưu riêng cho điện thoại */
 @media (max-width: 480px) {
+  html, body {
+    width: 100%;
+    overflow-x: hidden;       /* ❌ Chặn tràn ngang */
+  }
+
   body.dashboard {
     height: auto;
     align-items: flex-start;
-    padding: 20px;
+    padding: 10px;
   }
 
   .container {
     max-width: 100%;
+    width: 100%;              /* ✅ Đảm bảo chiếm đủ màn */
     height: auto;
     max-height: none;
+    overflow-y: auto;
     border-radius: 0;
     box-shadow: none;
+    padding: 20px 10px;
   }
 
   .grid {
-    grid-template-columns: repeat(2, 1fr);  /* ✅ 2 cột đều nhau */
+    grid-template-columns: repeat(2, 1fr);  /* 2 cột đều nhau */
+    gap: 10px;
   }
 
   .grid button {
-    font-size: 20px;
-    height: 60px;
+    font-size: 16px;
+    height: 50px;
+    padding: 10px;
+    word-break: break-word;    /* ✅ Không cho chữ vượt nút */
   }
 
   h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
+    font-size: 22px;
   }
 
   #visitCount {
-    font-size: 18px;
+    font-size: 16px;
   }
 }
+
