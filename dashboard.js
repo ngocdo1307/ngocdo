@@ -1,38 +1,36 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-  <meta charset="UTF-8">
-  <title>Bảng điều khiển</title>
-  <link rel="stylesheet" href="stylechinh.css">
-  <script type="module" src="dashboard.js" defer></script>
-</head>
-<body>
-  <div class="container">
-    <h2>🎉 Chào mừng bạn!</h2>
-    <p id="welcome-email"></p>
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-    <div class="grid">
-      <a href="traitimnganha1.html"><button>Trái Tim Ngân Hà</button></a>
-      <a href="anhnhoem2.html"><button>Anh Nhớ Em</button></a>
-      <a href="quachobe3.html"><button>Quà Cho Bé</button></a>
-      <a href="khongnechuot4.html"><button>Nút Không Biết Né</button></a>
-      <a href="nutcotodan5.html"><button>Nút Có To Dần</button></a>
-      <a href="chubay6.html"><button>Ngàn Lời Yêu</button></a>
-      <a href="bantim7.html"><button>Bắn Tim Xếp Hình</button></a>
-      <a href="chucnang8.html"><button>Chức Năng 8</button></a>
-      <a href="chucnang9.html"><button>Chức Năng 9</button></a>
-      <a href="taomaqr98.html"><button>Tạo Mã QR</button></a>
-      <a href="ungho99.html"><button>Donate</button></a>
-      <a href="trangcanhan100.html"><button>Chủ Sở Hữu</button></a>
-    </div>
+const firebaseConfig = {
+  apiKey: "AIzaSyAGibQhw21VUcPINMMKWV-rosFiyr3rRAs",
+  authDomain: "ngocdo1.firebaseapp.com",
+  projectId: "ngocdo1",
+  storageBucket: "ngocdo1.firebasestorage.app",
+  messagingSenderId: "598746900527",
+  appId: "1:598746900527:web:8231c7acd0ad49ccd7beda"
+};
 
-    <button id="logout">🚪 Đăng xuất</button>
-    <div style="margin-top: 20px; font-size: 14px; color: #ff3399;">
-  Số lượt truy cập: <span id="visitCount" style="color: #ffcc00;">Đang tải...</span>
-</div>
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-<!-- Gọi script bộ đếm -->
-<script type="module" src="visit-counter.js"></script>
-  </div>
-</body>
-</html>
+// Kiểm tra xem đã đăng nhập chưa
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    document.getElementById("welcome-email").textContent = `Đăng nhập bằng: ${user.email}`;
+  } else {
+    // Nếu chưa đăng nhập, quay về trang login
+    window.location.href = "index.html";
+  }
+});
+
+// Đăng xuất
+document.getElementById("logout").addEventListener("click", () => {
+  signOut(auth).then(() => {
+    alert("Đã đăng xuất!");
+    window.location.href = "index.html";
+  });
+});
