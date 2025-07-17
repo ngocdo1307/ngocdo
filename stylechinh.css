@@ -82,7 +82,7 @@ a.admin-link:visited {
   }
 
   .grid {
-    grid-template-columns: 2fr;  /* 2 cột trên điện thoại */
+    grid-template-columns: repeat(2, 1fr);  /* ✅ 2 cột đều nhau */
   }
 
   .grid button {
