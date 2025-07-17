@@ -5,8 +5,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;        /* SỬA LẠI: full chiều cao màn hình */
-  overflow: hidden;     /* Chặn trượt nếu nội dung nhỏ */
+  height: 100vh;
+  overflow: hidden;
   margin: 0;
 }
 
@@ -15,11 +15,11 @@ body {
   padding: 30px 20px;
   border-radius: 10px;
   width: 100%;
-  max-width: 400px;     /* co giãn đẹp hơn trên mọi màn hình */
+  max-width: 400px;
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
   text-align: center;
-  max-height: 90vh;     /* chặn tràn màn hình */
-  overflow-y: auto;     /* nếu quá dài thì cuộn trong khung */
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 input {
@@ -49,12 +49,14 @@ button:hover {
 .hidden {
   display: none;
 }
+
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 15px;
   margin-top: 20px;
 }
+
 a.admin-link {
   color: #00ff00 !important;
 }
@@ -62,77 +64,38 @@ a.admin-link {
 a.admin-link:visited {
   color: #00ff00 !important;
 }
-/* Chỉ áp dụng cho dashboard */
-body.dashboard {
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 20px;
-  overflow-y: auto;
-}
 
-body.dashboard .container {
-  width: 100%;
-  max-width: 100%;
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.2);
-  box-shadow: none;
-  border-radius: 0;
-}
-
-body.dashboard .grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 cột đều nhau */
-  gap: 15px;
-  margin-top: 20px;
-}
-
-body.dashboard .grid button {
-  font-size: 28px;
-  padding: 20px 10px;
-  width: 100%;
-  height: 100px;
-  background-color: #38b2ac;
-  border: none;
-  border-radius: 10px;
-  color: white;
-  font-weight: bold;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-body.dashboard .grid button:hover {
-  background-color: #319795;
-}
-
-body.dashboard #logout {
-  background: #ff4d4d;
-  font-size: 24px;
-  padding: 15px;
-  margin-top: 30px;
-  width: 100%;
-  border-radius: 8px;
-}
-
-body.dashboard #logout:hover {
-  background: #e60000;
-}
+/* ✅ Tối ưu riêng cho điện thoại */
 @media (max-width: 768px) {
-  body.dashboard .grid {
-    grid-template-columns: 1fr; /* Chia 1 cột cho điện thoại */
+  body.dashboard {
+    height: auto;
+    align-items: flex-start;
+    padding: 20px;
   }
 
-  body.dashboard .grid button {
-    font-size: 28px;           /* Chữ to hơn */
-    height: 80px;              /* Nút cao hơn */
-    padding: 20px 10px;
+  .container {
+    max-width: 100%;
+    height: auto;
+    max-height: none;
+    border-radius: 0;
+    box-shadow: none;
   }
 
-  body.dashboard h2 {
-    font-size: 26px;           /* Tiêu đề to hơn */
+  .grid {
+    grid-template-columns: 2fr;  /* 2 cột trên điện thoại */
   }
 
-  body.dashboard #visitCount {
+  .grid button {
+    font-size: 20px;
+    height: 60px;
+  }
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  #visitCount {
     font-size: 18px;
   }
 }
-
