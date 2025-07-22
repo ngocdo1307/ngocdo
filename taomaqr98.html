@@ -3,69 +3,111 @@
 <head>
   <meta charset="UTF-8">
   <title>Trang tạo QR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
       background: #fff0f5;
-      text-align: center;
-      padding: 40px;
-    }
-    input, select, textarea {
-      font-size: 16px;
-      padding: 10px;
-      margin: 10px;
-      border-radius: 8px;
-      border: 2px solid #ff66cc;
-      width: 80%;
-      max-width: 500px;
-    }
-    button {
-      font-size: 18px;
-      padding: 10px 30px;
-      background: #ff66cc;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      margin-top: 20px;
-      cursor: pointer;
-    }
-    .radio-group {
+      padding: 20px;
+      margin: 0;
       display: flex;
       justify-content: center;
-      gap: 30px;
+    }
+
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 480px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      text-align: center;
+      color: #d63384;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"],
+    input[type="color"] {
+      font-size: 16px;
+      padding: 10px;
+      margin-top: 10px;
+      margin-bottom: 16px;
+      border-radius: 10px;
+      border: 1px solid #ff99cc;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    label {
+      font-size: 14px;
+      color: #555;
+      display: block;
+      margin-top: 5px;
+    }
+
+    .radio-group {
+      display: flex;
+      justify-content: space-around;
       margin-top: 10px;
     }
-    .color-picker {
-      width: 80px;
-      height: 50px;
+
+    .radio-group label {
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 12px;
+      width: 100%;
+      background: #ff69b4;
+      color: white;
       border: none;
+      border-radius: 12px;
+      margin-top: 20px;
       cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #ff1493;
+    }
+
+    .color-picker {
+      height: 45px;
+      padding: 0;
     }
   </style>
 </head>
 <body>
-  <h1>Tạo mã QR</h1>
-
   <form action="ketqua98.html" method="GET">
-    <input type="text" name="link" placeholder="Nhập link tại đây" required><br>
+    <h1>📱 Tạo mã QR</h1>
 
-    <input type="text" name="toptext" placeholder="Nhập dòng chữ phía trên QR"><br>
-    <label>Chọn màu dòng trên:</label><br>
-    <input type="color" name="topcolor" value="#ff3399" class="color-picker"><br>
+    <input type="text" name="link" placeholder="🔗 Nhập link tại đây" required>
 
-    <input type="text" name="caption" placeholder="Nhập dòng chữ bên dưới QR"><br>
-    <label>Chọn màu dòng dưới:</label><br>
-    <input type="color" name="captioncolor" value="#333333" class="color-picker"><br>
+    <input type="text" name="toptext" placeholder="🔠 Dòng chữ phía trên QR">
+    <label>🎨 Màu dòng trên:</label>
+    <input type="color" name="topcolor" value="#ff3399" class="color-picker">
 
-    <label>Chọn màu QR:</label><br>
-    <input type="color" name="color" value="#00cc66" class="color-picker"><br>
+    <input type="text" name="caption" placeholder="📝 Dòng chữ bên dưới QR">
+    <label>🎨 Màu dòng dưới:</label>
+    <input type="color" name="captioncolor" value="#333333" class="color-picker">
+
+    <label>🎨 Màu QR:</label>
+    <input type="color" name="color" value="#00cc66" class="color-picker">
 
     <div class="radio-group">
       <label><input type="radio" name="style" value="normal" checked> QR thường</label>
       <label><input type="radio" name="style" value="heart"> QR trái tim</label>
     </div>
 
-    <button type="submit">Tạo mã QR</button>
+    <button type="submit">🚀 Tạo mã QR</button>
   </form>
 
   <script type="module" src="visit-counter.js"></script>
